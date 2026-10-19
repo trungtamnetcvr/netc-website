@@ -605,6 +605,107 @@ header.top .vn::before{background:linear-gradient(#ff4b52 0 50%,#8fc0ff 50% 100%
   try{fetch(base+'/counter/TOTAL.json').then(function(r){return r.json()}).then(function(d){n.textContent=d.count}).catch(function(){n.textContent='…'})}catch(e){}
 })();
 </script>
+<style>
+/* v10: đăng kiểm viên hoạt hình hỗ trợ khách hàng */
+#helper{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-family:var(--font-body,system-ui,sans-serif)}
+#helper .hp-btn{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:84px;height:100px;position:relative}
+#helper .hp-btn:focus-visible{outline:3px solid #ffc928;outline-offset:2px}
+#helper .hp-btn svg{width:100%;height:100%;display:block;overflow:visible;animation:hp-bob 3.2s ease-in-out infinite}
+#helper .hp-hand{transform-origin:62px 68px;animation:hp-wave 2.6s ease-in-out infinite}
+#helper .hp-eyes{transform-origin:40px 42px;animation:hp-blink 4.5s infinite}
+@keyframes hp-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes hp-wave{0%,55%,100%{transform:rotate(0)}65%{transform:rotate(-22deg)}75%{transform:rotate(8deg)}85%{transform:rotate(-18deg)}}
+@keyframes hp-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@media (prefers-reduced-motion:reduce){#helper .hp-btn svg,#helper .hp-hand,#helper .hp-eyes{animation:none}}
+#helper .hp-tip{position:absolute;right:92px;bottom:54px;background:#fff;color:#0f1f35;border:1px solid #dbe4ef;padding:10px 14px;font:600 14px/1.3 var(--font-head,inherit);white-space:nowrap;display:none}
+#helper .hp-tip::after{content:"";position:absolute;right:-7px;bottom:12px;width:12px;height:12px;background:#fff;border-right:1px solid #dbe4ef;border-top:1px solid #dbe4ef;transform:rotate(45deg)}
+#helper.tip .hp-tip{display:block}
+#helper.open .hp-tip{display:none}
+#helper .hp-panel{width:min(370px,calc(100vw - 32px));max-height:min(560px,calc(100vh - 150px));background:#fff;border:1px solid #dbe4ef;display:none;flex-direction:column;box-shadow:0 12px 40px rgba(10,40,100,.18)!important}
+#helper.open .hp-panel{display:flex}
+#helper .hp-head{background:#0b4aa8;color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px}
+#helper .hp-head b{font:700 15px/1.2 var(--font-head,inherit);flex:1}
+#helper .hp-head small{display:block;font:400 12px/1.3 var(--font-body,inherit);color:#cfe0fb;margin-top:2px}
+#helper .hp-x{all:unset;cursor:pointer;color:#fff;font-size:22px;line-height:1;padding:2px 8px}
+#helper .hp-x:focus-visible{outline:2px solid #ffc928}
+#helper .hp-body{padding:14px;overflow:auto;display:flex;flex-direction:column;gap:12px;font-size:14.5px;line-height:1.5;color:#0f1f35}
+#helper .hp-body p{margin:0}
+#helper .hp-body ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+#helper .hp-opts{display:flex;flex-direction:column;gap:8px}
+#helper .hp-opts a,#helper .hp-opts button{all:unset;box-sizing:border-box;cursor:pointer;display:block;padding:10px 12px;border:1px solid #0b57d0;color:#0b57d0;font:600 14px/1.3 var(--font-body,inherit)}
+#helper .hp-opts a:hover,#helper .hp-opts button:hover{background:#eef4fe}
+#helper .hp-opts a.pri{background:#0b57d0;color:#fff!important}
+#helper .hp-opts a.pri:hover{background:#0a49ad}
+#helper .hp-opts a:focus-visible,#helper .hp-opts button:focus-visible{outline:2px solid #ffc928;outline-offset:1px}
+#helper .hp-note{font-size:12.5px;color:#52647d;border-top:1px solid #dbe4ef;padding-top:10px}
+@media (max-width:480px){#helper .hp-btn{width:68px;height:82px}#helper .hp-tip{right:74px;bottom:40px}}
+</style>
+<div id="helper" data-lang="en"><div class="hp-panel" id="hpPanel" role="dialog" aria-labelledby="hpTitle" hidden><div class="hp-head"><div style="flex:1"><b id="hpTitle"></b><small id="hpSub"></small></div><button class="hp-x" type="button" id="hpClose"></button></div><div class="hp-body" id="hpBody" aria-live="polite"></div></div>
+<button class="hp-btn" type="button" id="hpBtn" aria-expanded="false" aria-controls="hpPanel"><span class="hp-tip" id="hpTip"></span>
+<svg viewBox="0 0 80 96" aria-hidden="true"><ellipse cx="40" cy="94" rx="26" ry="3" fill="#0f1f35" opacity=".12"/>
+<path d="M14 94V76Q14 62 29 60H51Q66 62 66 76V94Z" fill="#e6ecf4"/><path d="M31 60L40 73L49 60Z" fill="#0b4aa8"/><rect x="45" y="72" width="11" height="6" fill="#d62027"/><rect x="24" y="74" width="12" height="3" fill="#b9c6d8"/>
+<rect x="34" y="52" width="12" height="10" fill="#f0c08f"/><circle cx="21.5" cy="40" r="3.6" fill="#f0c08f"/><circle cx="58.5" cy="40" r="3.6" fill="#f0c08f"/><circle cx="40" cy="38" r="18" fill="#f6cfa6"/>
+<path d="M20 35Q20 13 40 13Q60 13 60 35Z" fill="#0b4aa8"/><rect x="15" y="32" width="50" height="6" rx="3" fill="#083a85"/><circle cx="40" cy="24" r="3.4" fill="#d62027"/>
+<g class="hp-eyes"><circle cx="33" cy="43" r="2.3" fill="#1c2b44"/><circle cx="47" cy="43" r="2.3" fill="#1c2b44"/></g>
+<path d="M34 49.5Q40 56 46 49.5" fill="none" stroke="#1c2b44" stroke-width="2.2" stroke-linecap="round"/><circle cx="29" cy="48" r="3" fill="#f2a98a" opacity=".55"/><circle cx="51" cy="48" r="3" fill="#f2a98a" opacity=".55"/>
+<g class="hp-hand"><path d="M62 68L73 52" stroke="#e6ecf4" stroke-width="9" stroke-linecap="round"/><circle cx="73.5" cy="50" r="5" fill="#f6cfa6"/></g>
+<path d="M18 68L12 80" stroke="#e6ecf4" stroke-width="9" stroke-linecap="round"/><circle cx="11.5" cy="82" r="4.6" fill="#f6cfa6"/></svg></button></div>
+<script>
+(function(){
+  var root=document.getElementById('helper');if(!root)return;
+  var L=root.getAttribute('data-lang')==='en'?'en':'vi';
+  var D={
+    vi:{btn:'Mở trợ giúp từ đăng kiểm viên NETC',tip:'Cần hỗ trợ không?',title:'Đăng kiểm viên NETC',sub:'Hướng dẫn nhanh cho khách hàng',close:'Đóng',
+      hello:'Xin chào, tôi là đăng kiểm viên NETC. Anh/chị cần tìm hiểu việc gì?',
+      menu:[['test','Xe của tôi cần thử phép nào?'],['flow','Quy trình gồm những bước nào?'],['cost','Chi phí bao nhiêu?'],['contact','Liên hệ ai, ở đâu?']],
+      back:'Quay lại câu hỏi khác',
+      test:{t:'Phép thử phụ thuộc loại xe và mức tiêu chuẩn khí thải áp dụng. Chọn nhóm xe của anh/chị để xem các phép thử:',o:[['xe máy','Xe mô tô, xe máy'],['ô tô','Ô tô hạng nhẹ'],['xe điện','Xe điện, hybrid'],['động cơ','Động cơ hạng nặng']],n:'Chưa chắc nên chọn phép nào thì gọi (024) 3689 3108, bộ phận kỹ thuật sẽ tư vấn.'},
+      flow:{t:'Quy trình gồm bốn bước:',s:['Xác định phép thử theo loại xe và tiêu chuẩn.','Gửi đề nghị thử nghiệm, nhận báo giá.','Giao xe hoặc động cơ, kèm hồ sơ kỹ thuật.','Nhận báo cáo thử nghiệm.'],go:'Xem chi tiết quy trình',send:'Gửi đề nghị thử nghiệm'},
+      cost:{t:'Website chưa công bố bảng giá vì giá chỉ đăng khi có văn bản được cấp có thẩm quyền phê duyệt. Anh/chị gửi yêu cầu báo giá hoặc gọi (024) 3689 3108 để được báo giá theo từng phép thử.',price:'Xem trang bảng giá',send:'Gửi yêu cầu báo giá'},
+      contact:{t:'Điện thoại: (024) 3689 3108.\nĐịa chỉ: Km15+200, Quốc lộ 1A, Thôn Yên Phú, Xã Ngọc Hồi, Thành phố Hà Nội.',go:'Xem đầu mối theo từng việc'},
+      foot:'Đây là trợ giúp tự động theo nội dung website, không thay cho tư vấn trực tiếp của NETC.'},
+    en:{btn:'Open help from the NETC inspector',tip:'Need a hand?',title:'NETC Inspector',sub:'Quick guide for customers',close:'Close',
+      hello:'Hello, I am the NETC inspector. What would you like to find out?',
+      menu:[['test','Which tests does my vehicle need?'],['flow','What are the steps?'],['cost','How much does it cost?'],['contact','Who do I contact, and where?']],
+      back:'Ask something else',
+      test:{t:'The test depends on the vehicle type and the applicable emission standard level. Pick your vehicle group to see the tests:',o:[['motorcycle','Motorcycles and mopeds'],['car','Light-duty cars'],['electric','Electric, hybrid'],['engine','Heavy-duty engines']],n:'Not sure which test to choose? Call (024) 3689 3108 and the technical team will advise you.'},
+      flow:{t:'The process has four steps:',s:['Identify the test by vehicle type and standard.','Send a test request and receive a quotation.','Deliver the vehicle or engine with the technical documents.','Receive the test report.'],go:'View the full process',send:'Submit a test request'},
+      cost:{t:'Prices are not published on this website yet; they are posted only once a price document is approved by the competent authority. Send a quotation request or call (024) 3689 3108 for a quote per test.',price:'See the prices page',send:'Send a quotation request'},
+      contact:{t:'Phone: (024) 3689 3108.\nAddress: Km15+200, National Highway 1A, Yên Phú Hamlet, Ngọc Hồi Commune, Hanoi.',go:'See the contact for each task'},
+      foot:'This is an automated guide based on the website content and does not replace direct advice from NETC.'}
+  }[L];
+  var btn=document.getElementById('hpBtn'),panel=document.getElementById('hpPanel'),body=document.getElementById('hpBody'),tip=document.getElementById('hpTip');
+  btn.setAttribute('aria-label',D.btn);tip.textContent=D.tip;
+  document.getElementById('hpTitle').textContent=D.title;document.getElementById('hpSub').textContent=D.sub;
+  var cl=document.getElementById('hpClose');cl.textContent='×';cl.setAttribute('aria-label',D.close);
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function a(href,go,txt,cls,q){return '<a href="'+href+'"'+(q?' data-q="'+esc(q)+'"':' data-go="'+go+'"')+(cls?' class="'+cls+'"':'')+'>'+esc(txt)+'</a>'}
+  function home(){
+    var h='<p>'+esc(D.hello)+'</p><div class="hp-opts">';
+    D.menu.forEach(function(m){h+='<button type="button" data-v="'+m[0]+'">'+esc(m[1])+'</button>'});
+    body.innerHTML=h+'</div><p class="hp-note">'+esc(D.foot)+'</p>';
+  }
+  function view(v){
+    var h='',x=D[v];
+    if(v==='test'){h='<p>'+esc(x.t)+'</p><div class="hp-opts">'+x.o.map(function(o){return a('#dich-vu','dich-vu',o[1],'',o[0])}).join('')+'</div><p>'+esc(x.n)+'</p>'}
+    if(v==='flow'){h='<p>'+esc(x.t)+'</p><ol>'+x.s.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol><div class="hp-opts">'+a('#dang-ky','dang-ky',x.go)+a('#dang-ky','dang-ky',x.send,'pri')+'</div>'}
+    if(v==='cost'){h='<p>'+esc(x.t)+'</p><div class="hp-opts">'+a('#bang-gia','bang-gia',x.price)+a('#dang-ky','dang-ky',x.send,'pri')+'</div>'}
+    if(v==='contact'){h='<p>'+esc(x.t).replace(/\n/g,'<br>')+'</p><div class="hp-opts">'+a('#lien-he','lien-he',x.go,'pri')+'</div>'}
+    body.innerHTML=h+'<div class="hp-opts"><button type="button" data-v="home">'+esc(D.back)+'</button></div>';
+  }
+  function setOpen(o){root.classList.toggle('open',o);panel.hidden=!o;btn.setAttribute('aria-expanded',o?'true':'false');root.classList.remove('tip');if(o){home();cl.focus()}else btn.focus()}
+  btn.addEventListener('click',function(){setOpen(!root.classList.contains('open'))});
+  cl.addEventListener('click',function(){setOpen(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&root.classList.contains('open'))setOpen(false)});
+  panel.addEventListener('click',function(e){
+    var b=e.target.closest('button[data-v]');
+    if(b){var v=b.getAttribute('data-v');if(v==='home')home();else view(v);return}
+    if(e.target.closest('a[data-go],a[data-q]')){root.classList.remove('open');panel.hidden=true;btn.setAttribute('aria-expanded','false')}
+  });
+  var shown=false;try{shown=sessionStorage.getItem('hpTip')==='1'}catch(e){}
+  if(!shown){setTimeout(function(){if(!root.classList.contains('open')){root.classList.add('tip');try{sessionStorage.setItem('hpTip','1')}catch(e){}setTimeout(function(){root.classList.remove('tip')},7000)}},3500)}
+})();
+</script>
 <script>
 (function(){var a=document.getElementById('langSw');if(!a)return;function u(){a.href=a.getAttribute('data-base')+(location.hash||'')}a.setAttribute('data-base',a.getAttribute('href'));u();window.addEventListener('hashchange',u);document.addEventListener('click',function(){setTimeout(u,0)})})();
 </script>

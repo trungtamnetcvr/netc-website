@@ -297,7 +297,7 @@ footer h3,footer h4{color:var(--ink)}footer a{color:var(--link)}footer p,footer 
 </style>
 
 <div class="preview"><div class="wrap"><span><b>Bản xem trước.</b> Nội dung nháp, chưa phải thông tin chính thức của NETC.</span><span>Chỗ nền vàng gạch nét là dữ liệu còn thiếu.</span></div></div>
-<div class="util"><div class="wrap"><span>Cục Đăng kiểm Việt Nam · Bộ Xây dựng</span><span><a href="#gioi-thieu" data-go="gioi-thieu">Giới thiệu</a><a href="#tin-tuc" data-go="tin-tuc">Tin tức</a><a href="#van-ban" data-go="van-ban">Văn bản</a><a href="#lien-he" data-go="lien-he">Liên hệ</a><span class="ph">EN</span></span></div></div>
+<div class="util"><div class="wrap"><span>Cục Đăng kiểm Việt Nam · Bộ Xây dựng</span><span><a href="#gioi-thieu" data-go="gioi-thieu">Giới thiệu</a><a href="#tin-tuc" data-go="tin-tuc">Tin tức</a><a href="#van-ban" data-go="van-ban">Văn bản</a><a href="#lien-he" data-go="lien-he">Liên hệ</a><a id="langSw" href="en/index.html" hreflang="en" lang="en">English</a></span></div></div>
 <header class="top"><div class="wrap"><a class="brand" href="#trang-chu" data-go="trang-chu"><span class="lg"><img class="logo logo-l" src="assets/logo-netc.png" alt="NETC"><img class="logo logo-d" src="assets/logo-netc-dark.png" alt="NETC"><span class="en">National Motor Vehicle<br>Emission Test Center</span></span><span class="vn">Trung tâm thử nghiệm khí thải<br>phương tiện giao thông cơ giới đường bộ</span></a><a class="callus" href="#lien-he" data-go="lien-he"><span>Tư vấn thử nghiệm</span><b>(024) 3689 3108</b></a></div></header>
 <nav class="main" aria-label="Menu chính"><div class="wrap"><ul id="menu">
 <li><a href="#trang-chu" data-go="trang-chu">Trang chủ</a></li>
@@ -594,4 +594,7 @@ footer h3,footer h4{color:var(--ink)}footer a{color:var(--link)}footer p,footer 
   box.hidden=false;
   try{fetch(base+'/counter/TOTAL.json').then(function(r){return r.json()}).then(function(d){n.textContent=d.count}).catch(function(){n.textContent='…'})}catch(e){}
 })();
+</script>
+<script>
+(function(){var a=document.getElementById('langSw');if(!a)return;function u(){a.href=a.getAttribute('data-base')+(location.hash||'')}a.setAttribute('data-base',a.getAttribute('href'));u();window.addEventListener('hashchange',u);document.addEventListener('click',function(){setTimeout(u,0)})})();
 </script>

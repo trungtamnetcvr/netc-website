@@ -291,6 +291,9 @@ footer h3,footer h4{color:var(--ink)}footer a{color:var(--link)}footer p,footer 
 .btn,.cta-band .btn,.navcta,a.btn{background:#0b57d0!important;color:#fff!important;border-color:#0b57d0!important}
 .btn.ghost,.cta-band .btn.ghost{background:#fff!important;color:#0b57d0!important}
 .btn:hover{filter:none;background:#0a49ad!important}
+
+.stats-visit{display:flex;gap:24px;flex-wrap:wrap;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+.stats-visit b{color:var(--ink);font-size:18px;font-variant-numeric:tabular-nums}
 </style>
 
 <div class="preview"><div class="wrap"><span><b>Bản xem trước.</b> Nội dung nháp, chưa phải thông tin chính thức của NETC.</span><span>Chỗ nền vàng gạch nét là dữ liệu còn thiếu.</span></div></div>
@@ -546,7 +549,7 @@ footer h3,footer h4{color:var(--ink)}footer a{color:var(--link)}footer p,footer 
   <div><h3>Dịch vụ</h3><a href="#dich-vu" data-go="dich-vu">Danh mục phép thử</a><a href="#dang-ky" data-go="dang-ky">Đăng ký và quy trình</a><a href="#bang-gia" data-go="bang-gia">Bảng giá</a><a href="#nang-luc" data-go="nang-luc">Năng lực và công nhận</a></div>
   <div><h3>Về trung tâm</h3><a href="#gioi-thieu" data-go="gioi-thieu">Giới thiệu</a><a href="#tin-tuc" data-go="tin-tuc">Tin tức</a><a href="#van-ban" data-go="van-ban">Văn bản và tiêu chuẩn</a><a href="#lien-he" data-go="lien-he">Liên hệ</a></div>
   <div><h3>Liên kết</h3><a href="https://www.vr.org.vn" target="_blank" rel="noopener">Cục Đăng kiểm Việt Nam</a><a href="https://moc.gov.vn" target="_blank" rel="noopener">Bộ Xây dựng</a></div>
-</div><div class="legal">Bản xem trước. Ảnh chụp tại NETC; ảnh có xe của hãng chỉ dùng khi hãng đồng ý. <span class="ph">CẦN BỔ SUNG: chính sách quyền riêng tư</span></div></div></footer>
+</div><div class="stats-visit" id="visit" hidden><span>Lượt truy cập: <b id="visitN">…</b></span><a id="visitMap" href="#" target="_blank" rel="noopener">Thống kê theo quốc gia</a></div><div class="legal">Bản xem trước. Ảnh chụp tại NETC; ảnh có xe của hãng chỉ dùng khi hãng đồng ý. <span class="ph">CẦN BỔ SUNG: chính sách quyền riêng tư</span></div></div></footer>
 
 <script>
 (function(){
@@ -576,5 +579,19 @@ footer h3,footer h4{color:var(--ink)}footer a{color:var(--link)}footer p,footer 
   document.getElementById('q2').addEventListener('input',filter);
   document.getElementById('cf').addEventListener('submit',function(e){e.preventDefault();document.getElementById('cmsg').hidden=false});
   var h=(location.hash||'').replace('#','');show(h||'trang-chu',false);
+})();
+</script>
+<script>
+/* Đếm truy cập bằng GoatCounter (goatcounter.com). Điền mã trang vào GC_CODE sau khi đăng ký; để trống thì không gửi dữ liệu nào. */
+(function(){
+  var GC_CODE='';
+  if(!GC_CODE||location.protocol==='file:')return;
+  var base='https://'+GC_CODE+'.goatcounter.com';
+  var sc=document.createElement('script');sc.async=true;sc.src='https://gc.zgo.at/count.js';
+  sc.setAttribute('data-goatcounter',base+'/count');document.head.appendChild(sc);
+  var box=document.getElementById('visit'),n=document.getElementById('visitN');
+  document.getElementById('visitMap').href=base+'/?hl1=locations';
+  box.hidden=false;
+  try{fetch(base+'/counter/TOTAL.json').then(function(r){return r.json()}).then(function(d){n.textContent=d.count}).catch(function(){n.textContent='…'})}catch(e){}
 })();
 </script>

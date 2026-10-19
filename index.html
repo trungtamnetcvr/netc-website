@@ -1,0 +1,580 @@
+<title>Website NETC</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Bố cục kiểu cổng thông tin EPA: thanh nhận diện, tìm kiếm lớn, lối tắt theo chủ đề, khối tin, chân trang nhiều cột */
+:root{
+  --bg:#f6f9fe; --surface:#ffffff; --ink:#132238; --muted:#53688a; --line:#d9e4f2; --tint:#e8f2ff;
+  --navy:#1560c4; --navy-deep:#0e3f8a; --on-navy:#ffffff; --link:#0f5bc0; --accent:#ffc928; --on-accent:#132238;
+  --red:#d62027; --green:#1fae7a; --navbg:#ffffff; --utilbg:#eaf3ff; --hero1:#dcecff; --hero2:#f4faff; --hero3:#e3f7ee;
+  --warn-bg:#fff4d6; --warn-ink:#5a4100; --warn-line:#e8c56a;
+  --font-head:"Be Vietnam Pro","Segoe UI",Arial,sans-serif; --font-body:"Public Sans","Segoe UI",Arial,sans-serif;
+}
+
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--font-body);margin:0}
+a{color:var(--link)}
+h1,h2,h3{font-family:var(--font-head);line-height:1.25;text-wrap:balance;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.preview{background:var(--accent);color:var(--on-accent);font-size:13px;padding-block:6px}
+.preview .wrap{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap}
+.util{background:var(--utilbg);color:var(--muted);font-size:13px;padding-block:7px;border-bottom:1px solid var(--line)}
+.util .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:22px;padding-block:16px;text-decoration:none;color:var(--ink);flex-wrap:wrap}
+.lg{display:flex;flex-direction:column;gap:6px;flex:none}
+.logo{width:190px;height:auto;display:block;background:#fff;padding:2px 0}
+.en{font:600 10.5px/1 var(--font-head);letter-spacing:.17em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.vn{border-left:2px solid var(--line);padding-left:22px;font:600 13px/1.5 var(--font-head);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);max-width:46ch}
+.vn small{display:block;font:500 12px var(--font-body);letter-spacing:.02em;text-transform:none;color:var(--muted)}
+@media (max-width:640px){.vn{border-left:0;padding-left:0}}
+nav.main{background:var(--navbg);position:sticky;top:env(safe-area-inset-top,0px);z-index:5;border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgba(15,60,130,.07)}
+nav.main ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap}
+nav.main a{display:block;padding:14px 11px;color:var(--ink);text-decoration:none;font:600 14.5px var(--font-head);border-bottom:3px solid transparent}
+nav.main a:hover{color:var(--link);background:var(--tint)}
+nav.main a[aria-current="page"]{border-bottom-color:var(--red);color:var(--link)}
+.hero{background:linear-gradient(115deg,var(--hero1) 0%,var(--hero2) 55%,var(--hero3) 100%)}
+.hero .in{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding-block:48px}
+.hero .in>*{min-width:0}
+.hero h1{font-size:clamp(28px,4.2vw,44px);color:var(--ink);max-width:18ch}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{max-width:54ch;font-size:18px;margin:14px 0 24px;color:var(--muted)}
+.hero img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;box-shadow:0 14px 34px rgba(15,60,130,.22)}
+@media (max-width:820px){.hero .in{grid-template-columns:1fr;gap:26px;padding-block:32px}}
+.search{display:flex;max-width:640px;background:var(--surface);border:2px solid var(--navy);border-radius:8px;overflow:hidden}
+.search input{flex:1;min-width:0;border:0;padding:14px 16px;font:400 16px var(--font-body);color:var(--ink);background:var(--surface)}
+.search button{border:0;background:var(--accent);color:var(--on-accent);font:700 15px var(--font-head);padding:0 24px;cursor:pointer}
+.hint{font-size:13.5px;margin-top:12px;color:var(--muted)}
+.hint a{color:var(--link)}
+.sec{padding-block:44px}
+.sec h2{font-size:26px;margin-bottom:6px}
+.sec .lead{color:var(--muted);margin:0 0 22px;max-width:70ch}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.tile{background:var(--surface);border:1px solid var(--line);padding:20px;text-decoration:none;color:var(--ink);display:block}
+.tile:hover{border-color:var(--navy);box-shadow:0 2px 0 var(--navy)}
+.tile{border-top:4px solid var(--navy);border-radius:0 0 8px 8px}
+.grid .tile:nth-child(2){border-top-color:var(--red)}.grid .tile:nth-child(3){border-top-color:var(--green)}.grid .tile:nth-child(4){border-top-color:var(--accent)}
+.tile h3{font-size:17px;color:var(--link);margin-bottom:6px}
+.tile p{margin:0;font-size:14.5px;color:var(--muted)}
+.band{background:var(--surface);border-block:1px solid var(--line)}
+.split{display:grid;gap:30px;grid-template-columns:1fr 1fr;align-items:center}
+.split img{width:100%;height:auto;display:block}
+.split>*{min-width:0}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+.stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-top:20px}
+.stat{border-left:4px solid var(--accent);padding-left:12px}
+.stat b{display:block;font:700 28px var(--font-head);color:var(--navy);font-variant-numeric:tabular-nums}
+
+
+.stat span{font-size:14px;color:var(--muted)}
+.news{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.card div{padding:16px}
+.card time{font-size:13px;color:var(--muted)}
+.card h3{font-size:17px;margin:4px 0}
+.ph{background:var(--warn-bg);color:var(--warn-ink);border:1px dashed var(--warn-line);padding:1px 7px;font-size:.88em;display:inline-block}
+.box{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);padding:14px 16px;margin:0 0 22px;font-size:14.5px}
+.pagehead{background:var(--tint);border-bottom:1px solid var(--line);padding-block:30px}
+.pagehead h1{font-size:clamp(24px,3.4vw,34px)}
+.crumb{font-size:13.5px;color:var(--muted);margin-bottom:8px}
+.crumb a{color:var(--muted)}
+.content{padding-block:34px 56px;display:grid;gap:34px;grid-template-columns:230px 1fr;align-items:start}
+.content>*{min-width:0}
+@media (max-width:820px){.content{grid-template-columns:1fr}}
+.side{border:1px solid var(--line);background:var(--surface)}
+.side a{display:block;padding:10px 14px;border-bottom:1px solid var(--line);text-decoration:none;font-size:14.5px;color:var(--ink)}
+.side a:last-child{border:0}
+.side a[aria-current="page"]{background:var(--tint);font-weight:600;border-left:4px solid var(--accent)}
+.prose h2{font-size:22px;margin:26px 0 8px}
+.prose h2:first-child{margin-top:0}
+.prose p,.prose li{max-width:72ch}
+.prose img{max-width:100%;height:auto;margin:10px 0}
+.tw{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;min-width:560px;background:var(--surface);font-size:14.5px}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+th{background:var(--tint);font-family:var(--font-head);font-size:13.5px}
+.steps{list-style:none;padding:0;margin:14px 0;display:grid;gap:12px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);padding:14px 16px 14px 62px;position:relative;max-width:none}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:12px;width:34px;height:34px;background:var(--navy);color:var(--on-navy);font:700 16px/34px var(--font-head);text-align:center}
+.svc{display:none}.svc.on{display:block}
+.svc-list{display:grid;gap:14px}
+.svc-item{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+.svc-item h3{font-size:17px;margin-bottom:4px}
+.svc-item p{margin:0;font-size:14.5px;color:var(--muted)}
+.svc-item[hidden]{display:none}
+.people{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.leaders{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.leader{display:grid;grid-template-columns:112px 1fr;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.leader>*{min-width:0}
+.avatar{width:112px;aspect-ratio:3/4;background:var(--tint);border-radius:8px;overflow:hidden;position:relative;display:grid;place-items:center;font:700 30px var(--font-head);color:var(--link)}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;margin:0}
+.leader b{display:block;font:700 17px var(--font-head)}
+.leader .role{color:var(--red);font:600 13.5px var(--font-head);margin-bottom:6px;display:block}
+.leader p{margin:0;font-size:14.5px;color:var(--muted)}
+.person{background:var(--surface);border:1px solid var(--line);padding:14px 16px;font-size:14.5px}
+.person b{display:block;font-family:var(--font-head)}
+.person span{color:var(--muted)}
+.page{display:none}.page.on{display:block}
+footer{background:var(--navy-deep);color:#d6e2f1;margin-top:0;padding-block:38px 26px;font-size:14px}
+footer h3{font-size:14px;color:#fff;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+footer a{color:#d6e2f1;display:block;padding:3px 0}
+footer .cols{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+footer .legal{border-top:1px solid rgba(255,255,255,.18);margin-top:26px;padding-top:16px;font-size:13px}
+.theme{background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:2px 10px;font:inherit;cursor:pointer;border-radius:4px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:no-preference){.page.on{animation:in .25s ease}@keyframes in{from{opacity:.4}to{opacity:1}}}
+
+/* v4: phong cách cổng dịch vụ kiểu TÜV: nền trắng, góc vuông, ảnh lớn, thẻ nội dung phủ trên ảnh, nút chữ in hoa, chân trang xanh đậm */
+:root{--bg:#ffffff;--tint:#f1f5fa;--line:#dde5ef;--muted:#51627c;--navy:#0a2f6b;--navy-deep:#071f4a;--link:#0a4fb3;--cta:#0b57d0;--on-cta:#ffffff;--red:#d62027}
+
+
+h1,h2,h3{font-weight:600}
+.util{background:var(--surface);color:var(--muted);border-bottom:1px solid var(--line)}
+.util a{color:var(--muted);text-decoration:none;margin-left:18px}.util a:hover{color:var(--link);text-decoration:underline}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--cta);color:var(--on-cta);padding:12px 22px;font:700 13px var(--font-head);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;border:2px solid var(--cta);cursor:pointer}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--link);border-color:var(--link)}
+.btn.sm{padding:9px 16px;font-size:12px}
+nav.main{box-shadow:none}
+.hero2{position:relative;background:var(--navy-deep);overflow:hidden}
+.hero2{background:var(--surface)}
+.hero2>img{position:absolute;top:0;right:0;width:68%;height:100%;object-fit:cover;object-position:50% 52%}
+.hero2::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--surface) 0%,var(--surface) 34%,transparent 62%)}
+.hero2 .wrap{z-index:1}
+@media (max-width:820px){.hero2>img{width:100%;height:240px;position:relative;display:block}.hero2::after{display:none}.hero2 .wrap{min-height:0}.hero2 .ov{margin-block:24px;padding:0}}
+.hero2 .wrap{position:relative;display:flex;min-height:500px;align-items:center}
+.hero2 .ov{max-width:520px;padding:0;margin-block:44px}
+.hero2 .ov .eyebrow{font:600 12px var(--font-head);letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.hero2 .ov h1{font-size:clamp(26px,3.4vw,36px);color:var(--ink)}
+.hero2 .ov p{color:var(--muted);margin:14px 0 22px;font-size:16.5px;max-width:40ch}
+.hero2 .ov .row{display:flex;gap:12px;flex-wrap:wrap}
+.find{background:var(--tint);border-bottom:1px solid var(--line)}
+.find .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:34px;padding-block:34px}
+.find .wrap>*{min-width:0}
+@media (max-width:820px){.find .wrap{grid-template-columns:1fr}}
+.find h2{font-size:21px;margin-bottom:12px}
+.find .search{max-width:none;border-radius:0;border:1px solid var(--navy)}
+.find .search button{background:var(--cta);color:var(--on-cta);text-transform:uppercase;letter-spacing:.07em;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips a{border:1px solid var(--line);background:var(--surface);padding:6px 12px;font-size:14px;text-decoration:none;color:var(--link)}
+.chips a:hover{border-color:var(--link)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;margin-top:6px}
+.flow>div{border-top:4px solid var(--navy);padding-top:14px}
+.flow b{display:block;font:600 13px var(--font-head);color:var(--red);letter-spacing:.1em;margin-bottom:4px}
+.flow h3{font-size:18px;margin-bottom:6px}
+.flow p{margin:0;font-size:14.5px;color:var(--muted)}
+.itiles{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.itile{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;color:#fff;text-decoration:none;background:var(--navy-deep)}
+.itile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.itile:hover img{transform:scale(1.05)}
+.itile .cap{position:absolute;inset:auto 0 0 0;padding:44px 18px 16px;background:linear-gradient(transparent,rgba(5,20,50,.88))}
+.itile h3{color:#fff;font-size:19px}
+.itile p{margin:2px 0 0;font-size:14px;color:#dbe6f6}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{cursor:pointer;font:600 17px var(--font-head);list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";font-size:22px;color:var(--link);line-height:1}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:10px 0 0;color:var(--muted);max-width:75ch}
+.cta-band{background:var(--navy);color:#fff}
+.cta-band .wrap{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-block:30px}
+.cta-band h2{font-size:24px;color:#fff;margin:0 0 4px}
+.cta-band p{margin:0;color:#d6e3f6}
+.cta-band .btn{background:#fff;color:var(--navy);border-color:#fff}
+.stats3{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--line)}
+.stats3>div{padding:20px;border-right:1px solid var(--line)}
+.stats3 b{display:block;font:600 30px var(--font-head);color:var(--link);font-variant-numeric:tabular-nums}
+.stats3 span{font-size:14px;color:var(--muted)}
+.tile,.card,.leader,.side,.search,.avatar,.person,.svc-item{border-radius:0}
+.tile{border-top-width:3px}
+footer{background:var(--navy-deep)}
+
+/* v5: khối thương hiệu một hàng, logo không khung, tên Anh nằm ngay dưới logo, tên Việt bên phải */
+.brand{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:0 28px;padding-block:18px;flex-wrap:nowrap}
+.lg{display:flex;flex-direction:column;gap:7px;align-items:flex-start}
+.logo{width:196px;height:auto;display:block;background:none;padding:0;border:0;border-radius:0}
+.logo-d{display:none}
+.en{font:600 10.5px/1.45 var(--font-head);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.vn{border-left:0;padding:2px 0 2px 28px;position:relative;font:600 14px/1.5 var(--font-head);letter-spacing:.09em;text-transform:uppercase;color:var(--ink);max-width:none}
+.vn::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;background:linear-gradient(var(--red) 0 50%,var(--link) 50% 100%)}
+@media (max-width:760px){.brand{grid-template-columns:1fr;gap:12px}.vn{padding-left:14px;font-size:12.5px}}
+
+
+
+
+
+
+.parent{display:flex;align-items:center;gap:10px}
+.util .vr{margin-left:0}
+.vr{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.vr img{height:28px;width:auto;display:block;background:#fff;padding:2px 5px;border-radius:2px}
+.vr img+b{display:none}
+.vr b{font:700 12px/1 var(--font-head);letter-spacing:.1em;color:var(--link);border:1px solid var(--line);background:var(--surface);padding:7px 8px}
+.vr-f{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.18);color:#fff;display:flex}
+.vr-f img{height:40px}
+.vr-f b{color:#fff;background:transparent;border-color:rgba(255,255,255,.5)}
+.vr-f span{font:600 15px var(--font-head)}
+.vr-f small{display:block;font:400 13px var(--font-body);color:#c9d8ee}
+
+/* v6: logo cơ quan chủ quản ở đầu trang, nút đăng ký chuyển xuống thanh menu */
+header.top .wrap{justify-content:space-between}
+.plogo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);padding-left:24px;border-left:1px solid var(--line)}
+.plogo img{height:62px;width:auto;display:block;background:#fff;padding:3px 6px;border-radius:3px}
+.plogo span{font:500 12px/1.35 var(--font-body);color:var(--muted)}
+.plogo b{display:block;font:600 13.5px/1.3 var(--font-head);color:var(--ink);margin-top:2px}
+@media (max-width:760px){.plogo{border-left:0;padding-left:0}.plogo img{height:48px}}
+nav.main .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.navcta{margin-block:6px;white-space:nowrap}
+.vr-f img{height:56px}
+
+/* v7: logo VR nền trong suốt, cùng hàng với logo NETC, không chữ phụ */
+.plogo{padding-left:0;border-left:0;margin-left:auto}
+.plogo img{height:60px;width:auto;background:none;padding:0;border-radius:0}
+header.top .wrap{flex-wrap:nowrap}
+.brand{min-width:0}
+.vn{font-size:13px;letter-spacing:.08em}
+.vr-f img{background:none;padding:0;height:56px}
+@media (max-width:900px){header.top .wrap{flex-wrap:wrap}.plogo{margin-left:0}.plogo img{height:46px}}
+
+.plogo img.logo-d{display:none}
+
+
+
+
+
+
+.nlist{display:grid;gap:0;border-top:1px solid var(--line);margin:10px 0 34px}
+.nitem{padding:18px 0;border-bottom:1px solid var(--line)}
+.nitem .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.nitem h3{font-size:19px;margin:6px 0}
+.nitem h3 a{color:var(--ink);text-decoration:none}.nitem h3 a:hover{color:var(--link);text-decoration:underline}
+.nitem p{margin:0;max-width:78ch;color:var(--muted);font-size:15px}
+.tag{font:700 11px var(--font-head);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;color:#fff;background:var(--navy)}
+.t-eu{background:#1f55b8}.t-us{background:#b3262e}.t-cn{background:#a4610a}.t-jp{background:#6b3fa0}.t-un{background:#0f7c66}
+.src{margin-left:auto}
+.tech{margin:8px 0 0;padding-left:20px}.tech li{margin-bottom:8px;max-width:78ch}
+
+/* v8: nền sáng đồng bộ, thiết kế phẳng */
+:root{color-scheme:light;--bg:#ffffff;--surface:#ffffff;--tint:#f0f5fb;--line:#dbe4ef;--ink:#0f1f35;--muted:#52647d;--navy:#0b4aa8;--link:#0b57d0;--cta:#0b57d0;--on-cta:#fff;--red:#d62027}
+*{box-shadow:none!important;border-radius:0!important}
+.logo-d{display:none!important}.logo-l{display:block!important}
+.hero2{background:var(--tint)}
+.hero2::after{display:none}
+.hero2>img{display:none}
+.hero2 .wrap.hgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:0;min-height:0;padding-top:0;padding-bottom:0;align-items:stretch}
+.hero2 .ov{padding:56px 48px 56px 0;margin:0;max-width:none;align-self:center;background:none}
+.hero2 .himg{position:relative;min-height:420px}
+.hero2 .himg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;max-width:none}
+@media (max-width:820px){.hero2 .wrap.hgrid{grid-template-columns:1fr}.hero2 .ov{padding:28px 0}.hero2 .himg{min-height:240px}}
+.callus{display:flex;flex-direction:column;align-items:flex-end;text-decoration:none;color:var(--ink);margin-left:auto}
+.callus span{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.callus b{font-size:22px;color:var(--link);font-variant-numeric:tabular-nums}
+@media (max-width:760px){.callus{display:none}}
+.itile{aspect-ratio:auto;color:var(--ink);background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;text-decoration:none}
+.itile img{position:static;width:100%;height:200px;object-fit:cover;transform:none!important}
+.itile .cap,.itile>div{position:static;padding:14px 16px 16px;background:none;border-top:3px solid var(--navy);color:var(--ink)}
+.itile:hover{border-color:var(--link)}
+.itile h3{color:var(--ink)}.itile p{color:var(--muted)}
+.cta-band{background:var(--tint);color:var(--ink);border-block:1px solid var(--line)}
+.cta-band h2{color:var(--ink)}.cta-band p{color:var(--muted)}
+.band{background:var(--tint)}
+footer{background:var(--tint);color:var(--ink);border-top:1px solid var(--line)}
+footer h3,footer h4{color:var(--ink)}footer a{color:var(--link)}footer p,footer li,footer .legal{color:var(--muted)}
+.nitem .orig{margin-top:6px;font-size:13px;color:var(--muted)}
+.nlist.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;border-top:0}
+.nlist.cols3 .nitem{border:0;border-top:3px solid var(--navy);background:var(--surface);padding:16px}
+.nlist.cols3 .nitem p{margin:0}
+.tag.t-eu,.tag.t-us,.tag.t-cn,.tag.t-jp,.tag.t-un{color:#fff}
+
+.btn,.cta-band .btn,.navcta,a.btn{background:#0b57d0!important;color:#fff!important;border-color:#0b57d0!important}
+.btn.ghost,.cta-band .btn.ghost{background:#fff!important;color:#0b57d0!important}
+.btn:hover{filter:none;background:#0a49ad!important}
+</style>
+
+<div class="preview"><div class="wrap"><span><b>Bản xem trước.</b> Nội dung nháp, chưa phải thông tin chính thức của NETC.</span><span>Chỗ nền vàng gạch nét là dữ liệu còn thiếu.</span></div></div>
+<div class="util"><div class="wrap"><span>Cục Đăng kiểm Việt Nam · Bộ Xây dựng</span><span><a href="#gioi-thieu" data-go="gioi-thieu">Giới thiệu</a><a href="#tin-tuc" data-go="tin-tuc">Tin tức</a><a href="#van-ban" data-go="van-ban">Văn bản</a><a href="#lien-he" data-go="lien-he">Liên hệ</a><span class="ph">EN</span></span></div></div>
+<header class="top"><div class="wrap"><a class="brand" href="#trang-chu" data-go="trang-chu"><span class="lg"><img class="logo logo-l" src="assets/logo-netc.png" alt="NETC"><img class="logo logo-d" src="assets/logo-netc-dark.png" alt="NETC"><span class="en">National Motor Vehicle<br>Emission Test Center</span></span><span class="vn">Trung tâm thử nghiệm khí thải<br>phương tiện giao thông cơ giới đường bộ</span></a><a class="callus" href="#lien-he" data-go="lien-he"><span>Tư vấn thử nghiệm</span><b>(024) 3689 3108</b></a></div></header>
+<nav class="main" aria-label="Menu chính"><div class="wrap"><ul id="menu">
+<li><a href="#trang-chu" data-go="trang-chu">Trang chủ</a></li>
+<li><a href="#dich-vu" data-go="dich-vu">Dịch vụ thử nghiệm</a></li>
+<li><a href="#dang-ky" data-go="dang-ky">Đăng ký và quy trình</a></li>
+<li><a href="#bang-gia" data-go="bang-gia">Bảng giá</a></li>
+<li><a href="#nang-luc" data-go="nang-luc">Năng lực và công nhận</a></li>
+<li><a href="#lien-he" data-go="lien-he">Liên hệ</a></li>
+</ul><a class="btn sm navcta" href="#dang-ky" data-go="dang-ky">Gửi đề nghị thử nghiệm</a></div></nav>
+
+<main>
+<!-- TRANG CHỦ -->
+<section class="page on" id="trang-chu">
+  <div class="hero2"><div class="wrap hgrid"><div class="ov">
+    <div class="eyebrow">Dành cho nhà sản xuất, lắp ráp, nhập khẩu</div>
+    <h1>Thử nghiệm khí thải và năng lượng xe cơ giới, từ đăng ký đến báo cáo</h1>
+    <p>Biết xe của bạn cần thử phép nào, gửi đề nghị và nhận báo cáo thử nghiệm tại một đầu mối.</p>
+    <div class="row"><a class="btn" href="#dang-ky" data-go="dang-ky">Gửi đề nghị thử nghiệm</a><a class="btn ghost" href="#bang-gia" data-go="bang-gia">Xem giá</a></div>
+  </div><div class="himg"><img src="assets/hero-dieukhien.jpg" alt="Kỹ thuật viên NETC vận hành hệ thống điều khiển phòng thử"></div></div></div>
+  <div class="find"><div class="wrap">
+    <div><h2>Tìm phép thử cho xe của bạn</h2>
+      <form class="search" id="sform" role="search"><input id="q" type="search" placeholder="Ví dụ: Euro 5, xe máy, xe điện, bay hơi nhiên liệu" aria-label="Tìm dịch vụ thử nghiệm"><button type="submit">Tìm</button></form></div>
+    <div><h2>Được tìm nhiều nhất</h2>
+      <div class="chips"><a href="#dich-vu" data-q="xe máy">Khí thải xe máy</a><a href="#dich-vu" data-q="ô tô">Khí thải ô tô</a><a href="#dich-vu" data-q="xe điện">Xe điện, hybrid</a><a href="#dich-vu" data-q="động cơ">Động cơ hạng nặng</a><a href="#dich-vu" data-q="bay hơi">Bay hơi nhiên liệu</a><a href="#dich-vu" data-q="tiêu hao">Tiêu hao nhiên liệu</a></div></div>
+  </div></div>
+  <div class="sec wrap"><h2>Lần đầu làm việc với NETC</h2><p class="lead">Bốn bước từ lúc bạn quyết định thử nghiệm đến khi nhận báo cáo.</p>
+    <div class="flow">
+      <div><b>BƯỚC 1</b><h3>Xác định phép thử</h3><p>Chọn theo loại xe và mức tiêu chuẩn khí thải. Chưa chắc thì hỏi phòng Thử nghiệm xe cơ giới.</p></div>
+      <div><b>BƯỚC 2</b><h3>Gửi đề nghị, nhận báo giá</h3><p>Điền biểu mẫu đề nghị. NETC xác nhận phạm vi và báo giá.</p></div>
+      <div><b>BƯỚC 3</b><h3>Giao xe hoặc động cơ</h3><p>Giao mẫu tại trung tâm, kèm hồ sơ kỹ thuật.</p></div>
+      <div><b>BƯỚC 4</b><h3>Nhận báo cáo thử nghiệm</h3><p>Nhận báo cáo tại bộ phận tiếp nhận và trả báo cáo.</p></div>
+    </div>
+    <p style="margin-top:22px"><a class="btn sm" href="#dang-ky" data-go="dang-ky">Xem chi tiết quy trình</a></p></div>
+  <div class="sec wrap" style="padding-top:0"><h2>Bạn cần thử nghiệm gì</h2><p class="lead">Chọn nhóm xe hoặc loại phép thử.</p>
+    <div class="itiles">
+      <a class="itile" href="#dich-vu" data-q="xe máy"><img src="assets/t-xemay.jpg" alt=""><div class="cap"><h3>Xe mô tô, xe máy</h3><p>Khí thải mức 2 đến 5, tiêu hao nhiên liệu</p></div></a>
+      <a class="itile" href="#dich-vu" data-q="ô tô"><img src="assets/t-oto.jpg" alt=""><div class="cap"><h3>Ô tô hạng nhẹ</h3><p>Khí thải, tiêu hao nhiên liệu</p></div></a>
+      <a class="itile" href="#dich-vu" data-q="xe điện"><img src="assets/t-xedien.jpg" alt=""><div class="cap"><h3>Xe điện và hybrid</h3><p>Đo tiêu thụ điện năng</p></div></a>
+      <a class="itile" href="#dich-vu" data-q="động cơ"><img src="assets/t-dongco.jpg" alt=""><div class="cap"><h3>Động cơ hạng nặng</h3><p>Khí thải động cơ trên băng thử</p></div></a>
+      <a class="itile" href="#dich-vu" data-q="bay hơi"><img src="assets/t-bayhoi.jpg" alt=""><div class="cap"><h3>Bay hơi nhiên liệu</h3><p>Thử trong buồng kín</p></div></a>
+      <a class="itile" href="#dich-vu" data-go="dich-vu"><img src="assets/t-khac.jpg" alt=""><div class="cap"><h3>Dịch vụ khác</h3><p>Độ khói, OBD, giám sát thử nghiệm, đào tạo</p></div></a>
+    </div></div>
+  <div class="band"><div class="sec wrap"><h2>Vì sao các hãng chọn NETC</h2><p class="lead">Đơn vị thử nghiệm khí thải của Cục Đăng kiểm Việt Nam, hoạt động từ năm 2009.</p>
+    <div class="stats3">
+      <div><b>26</b><span>phép thử trong phạm vi công nhận VILAS 884 (ISO/IEC 17025)</span></div>
+      <div><b>ISO 9001</b><span>hệ thống quản lý chất lượng, phiên bản 2015</span></div>
+      <div><b>Châu Âu</b><span>thiết bị đồng bộ, được TÜV (Đức) kiểm tra và công nhận</span></div>
+      <div><b>2009</b><span>năm thành lập</span></div>
+    </div></div></div>
+  <div class="sec wrap faq"><h2>Câu hỏi thường gặp</h2><p class="lead">Những điều khách hàng mới thường hỏi trước khi gửi đề nghị.</p>
+    <details><summary>Xe của tôi cần thử phép nào?</summary><p>Phép thử phụ thuộc loại xe và mức tiêu chuẩn khí thải áp dụng. Dùng ô tìm kiếm phía trên hoặc hỏi phòng Thử nghiệm xe cơ giới ở trang <a href="#lien-he" data-go="lien-he">Liên hệ</a>.</p></details>
+    <details><summary>Tôi cần chuẩn bị gì trước khi giao xe?</summary><p><span class="ph">CẦN BỔ SUNG: danh mục hồ sơ và điều kiện tiếp nhận mẫu</span></p></details>
+    <details><summary>Thử nghiệm mất bao lâu?</summary><p><span class="ph">CẦN BỔ SUNG: thời gian theo từng phép thử</span></p></details>
+    <details><summary>Chi phí bao nhiêu?</summary><p>Xem <a href="#bang-gia" data-go="bang-gia">Bảng giá</a>. Dịch vụ chưa có trong bảng: gửi yêu cầu báo giá. <span class="ph">CẦN BỔ SUNG: bảng giá được duyệt</span></p></details>
+    <details><summary>Kết quả thử nghiệm của hãng có được bảo mật không?</summary><p><span class="ph">CẦN BỔ SUNG: chính sách bảo mật kết quả, do NETC xác nhận</span></p></details>
+    <details><summary>Ai nhận báo cáo thử nghiệm và thanh toán?</summary><p>Báo cáo nhận tại bộ phận Tiếp nhận và trả báo cáo thử nghiệm; phí và hóa đơn xử lý tại bộ phận Thu giá thử nghiệm. Số điện thoại ở trang <a href="#lien-he" data-go="lien-he">Liên hệ</a>.</p></details>
+  </div>
+  <div class="cta-band"><div class="wrap"><div><h2>Cần tư vấn trước khi gửi mẫu?</h2><p>Gọi (024) 3689 3108 hoặc xem đầu mối theo từng việc.</p></div><a class="btn" href="#lien-he" data-go="lien-he">Liên hệ đầu mối</a></div></div>
+  <div class="sec wrap"><h2>Liên kết</h2><p class="lead">Cơ quan quản lý và các đơn vị có liên quan đến hoạt động của NETC.</p>
+    <div class="grid">
+      <a class="tile" href="https://www.vr.org.vn" target="_blank" rel="noopener"><h3>Cục Đăng kiểm Việt Nam</h3><p>Cơ quan quản lý trực tiếp của NETC. vr.org.vn</p></a>
+      <a class="tile" href="https://moc.gov.vn" target="_blank" rel="noopener"><h3>Bộ Xây dựng</h3><p>Cơ quan chủ quản của Cục Đăng kiểm Việt Nam. moc.gov.vn</p></a>
+      <div class="tile"><h3>VIRES</h3><p>Đơn vị thuộc Cục. <span class="ph">tên đầy đủ và địa chỉ web</span></p></div>
+      <div class="tile"><h3>NVICC</h3><p>Đơn vị thuộc Cục. <span class="ph">tên đầy đủ và địa chỉ web</span></p></div>
+      <div class="tile"><h3>VMTC</h3><p>Đơn vị thuộc Cục. <span class="ph">tên đầy đủ và địa chỉ web</span></p></div>
+      <div class="tile"><h3>Văn phòng Công nhận Chất lượng</h3><p>Đơn vị cấp công nhận VILAS 884. <span class="ph">địa chỉ web</span></p></div>
+    </div></div>
+  <div class="band"><div class="sec wrap"><h2>Thông tin chuyên ngành thế giới</h2><p class="lead">Tóm tắt tiếng Việt từ nguồn gốc của EU, Hoa Kỳ, Trung Quốc, Nhật Bản và UNECE.</p>
+    <div class="nlist cols3">
+      <article class="nitem"><div class="meta"><span class="tag t-eu">Châu Âu</span><time>Áp dụng từ 29/11/2026</time></div><h3><a href="#tin-tuc" data-go="tin-tuc">Euro 7: khí thải cả vòng đời, độ chai pin, giám sát trên xe</a></h3><p>Nguồn: EUR-Lex.</p></article>
+      <article class="nitem"><div class="meta"><span class="tag t-us">Hoa Kỳ</span><time>Đề xuất 18/05/2026</time></div><h3><a href="#tin-tuc" data-go="tin-tuc">EPA đề xuất hoãn lộ trình Tier 4 đến năm mẫu 2029</a></h3><p>Nguồn: Federal Register.</p></article>
+      <article class="nitem"><div class="meta"><span class="tag t-cn">Trung Quốc</span><time>Từ 07/2023</time></div><h3><a href="#tin-tuc" data-go="tin-tuc">China 6b và yêu cầu đo phát thải khi chạy thực tế</a></h3><p>Nguồn: DieselNet.</p></article>
+    </div>
+    <p style="margin-top:20px"><a class="btn sm" href="#tin-tuc" data-go="tin-tuc">Xem tất cả</a></p></div></div>
+</section>
+
+<!-- DỊCH VỤ -->
+<section class="page" id="dich-vu">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Dịch vụ thử nghiệm</div><h1>Dịch vụ thử nghiệm</h1></div></div>
+  <div class="wrap content"><aside class="side" aria-label="Trong mục này"><a href="#dich-vu" data-go="dich-vu" aria-current="page">Danh mục phép thử</a><a href="#dang-ky" data-go="dang-ky">Đăng ký và quy trình</a><a href="#bang-gia" data-go="bang-gia">Bảng giá</a><a href="#nang-luc" data-go="nang-luc">Năng lực và công nhận</a></aside>
+  <div class="prose">
+    <div class="box">Danh mục dưới đây tổng hợp từ trang giới thiệu hiện tại và hồ sơ NETC. Tiêu chuẩn viện dẫn, thời gian thực hiện cho từng phép thử cần NETC bổ sung trước khi công bố.</div>
+    <form class="search" id="f2" style="max-width:none;border:1px solid var(--line);margin-bottom:18px"><input id="q2" type="search" placeholder="Lọc danh mục: Euro 5, xe máy, xe điện, bay hơi..." aria-label="Lọc danh mục phép thử" style="background:var(--surface);color:var(--ink)"><button type="submit">Lọc</button></form>
+    <div class="svc-list" id="svcs">
+      <div class="svc-item" data-k="xe máy mô tô 2 bánh 3 bánh khí thải euro"><h3>Khí thải xe mô tô, xe máy</h3><p>Xe 2, 3, 4 bánh theo mức tiêu chuẩn khí thải 2, 3, 4, 5. <span class="ph">Tiêu chuẩn viện dẫn</span></p></div>
+      <div class="svc-item" data-k="ô tô hạng nhẹ khí thải euro"><h3>Khí thải ô tô hạng nhẹ</h3><p>Mức 2, 3, 4, 5. <span class="ph">Chu trình thử, tiêu chuẩn viện dẫn</span></p></div>
+      <div class="svc-item" data-k="động cơ hạng nặng khí thải euro"><h3>Khí thải động cơ ô tô hạng nặng</h3><p>Thử trên băng thử động cơ. <span class="ph">Tiêu chuẩn viện dẫn</span></p></div>
+      <div class="svc-item" data-k="tiêu hao nhiên liệu cân bằng cacbon"><h3>Tiêu hao nhiên liệu</h3><p>Phương pháp cân bằng cacbon và đo trực tiếp.</p></div>
+      <div class="svc-item" data-k="bay hơi nhiên liệu"><h3>Bay hơi nhiên liệu</h3><p>Thử bay hơi nhiên liệu ô tô. <span class="ph">Tiêu chuẩn, thời gian thực hiện</span></p></div>
+      <div class="svc-item" data-k="xe điện hybrid năng lượng điện năng"><h3>Tiêu thụ điện năng xe điện, hybrid</h3><p>Đo năng lượng cho xe điện và ô tô hybrid điện hạng nhẹ.</p></div>
+      <div class="svc-item" data-k="độ khói obd"><h3>Độ khói, OBD</h3><p>Phép thử độ khói và hệ thống chẩn đoán trên xe (OBD). <span class="ph">Phạm vi áp dụng</span></p></div>
+      <div class="svc-item" data-k="giám sát đánh giá cơ sở thử nghiệm đào tạo đăng kiểm viên tư vấn"><h3>Dịch vụ kỹ thuật khác</h3><p>Giám sát thử nghiệm, đánh giá cơ sở thử nghiệm, đào tạo và đánh giá đăng kiểm viên lĩnh vực khí thải, nghiên cứu và chuyển giao công nghệ. <span class="ph">Danh mục dịch vụ được cung cấp cho khách hàng</span></p></div>
+    </div>
+    <p id="none" hidden>Không có phép thử khớp từ khóa. Xóa từ khóa hoặc liên hệ đầu mối để được tư vấn.</p>
+  </div></div>
+</section>
+
+<!-- ĐĂNG KÝ -->
+<section class="page" id="dang-ky">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Đăng ký và quy trình</div><h1>Đăng ký và quy trình thử nghiệm</h1></div></div>
+  <div class="wrap content"><aside class="side"><a href="#dich-vu" data-go="dich-vu">Danh mục phép thử</a><a href="#dang-ky" data-go="dang-ky" aria-current="page">Đăng ký và quy trình</a><a href="#bang-gia" data-go="bang-gia">Bảng giá</a><a href="#nang-luc" data-go="nang-luc">Năng lực và công nhận</a></aside>
+  <div class="prose">
+    <div class="box">Các bước dưới đây là khung dự kiến. NETC cần đối chiếu với quy trình đang áp dụng trước khi công bố.</div>
+    <h2>Sáu bước từ đề nghị đến báo cáo thử nghiệm</h2>
+    <ol class="steps">
+      <li><b>Gửi đề nghị thử nghiệm.</b> Nêu loại xe hoặc động cơ, tiêu chuẩn cần thử, số lượng mẫu. <span class="ph">Biểu mẫu đề nghị</span></li>
+      <li><b>Nhận xác nhận phạm vi và báo giá.</b> NETC xác nhận phép thử áp dụng và gửi báo giá. <span class="ph">Thời hạn phản hồi</span></li>
+      <li><b>Ký hợp đồng.</b> <span class="ph">Mẫu hợp đồng, điều khoản bảo mật</span></li>
+      <li><b>Giao mẫu.</b> Giao xe hoặc động cơ tại trung tâm, kèm hồ sơ kỹ thuật. <span class="ph">Hồ sơ, điều kiện tiếp nhận</span></li>
+      <li><b>Thử nghiệm.</b> Thực hiện tại phòng thử tương ứng. <span class="ph">Thời gian theo từng phép thử</span></li>
+      <li><b>Nhận báo cáo thử nghiệm và thanh toán.</b> Nhận báo cáo tại bộ phận tiếp nhận và trả báo cáo; thu phí và xuất hóa đơn tại bộ phận thu giá.</li>
+    </ol>
+    <h2>Biểu mẫu tải về</h2>
+    <div class="tw"><table><thead><tr><th>Biểu mẫu</th><th>Dùng khi</th><th>Tệp</th></tr></thead><tbody>
+      <tr><td><span class="ph">Đề nghị thử nghiệm</span></td><td>Bắt đầu một đợt thử nghiệm</td><td><span class="ph">PDF/Word</span></td></tr>
+      <tr><td><span class="ph">Yêu cầu báo giá</span></td><td>Cần báo giá trước khi quyết định</td><td><span class="ph">PDF/Word</span></td></tr>
+      <tr><td><span class="ph">Phiếu giao nhận mẫu</span></td><td>Giao xe hoặc động cơ</td><td><span class="ph">PDF/Word</span></td></tr></tbody></table></div>
+    <h2>Theo dõi mẫu đang thử nghiệm</h2>
+    <p>Giai đoạn sau: mỗi hãng đăng nhập để xem trạng thái mẫu của riêng mình. Kết quả thử nghiệm là thông tin bảo mật của khách hàng nên không đăng công khai.</p>
+  </div></div>
+</section>
+
+<!-- BẢNG GIÁ -->
+<section class="page" id="bang-gia">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Bảng giá</div><h1>Bảng giá dịch vụ thử nghiệm</h1></div></div>
+  <div class="wrap content"><aside class="side"><a href="#dich-vu" data-go="dich-vu">Danh mục phép thử</a><a href="#dang-ky" data-go="dang-ky">Đăng ký và quy trình</a><a href="#bang-gia" data-go="bang-gia" aria-current="page">Bảng giá</a><a href="#nang-luc" data-go="nang-luc">Năng lực và công nhận</a></aside>
+  <div class="prose">
+    <div class="box">Chưa điền số liệu nào. Chỉ đăng giá khi có văn bản giá dịch vụ được cấp có thẩm quyền phê duyệt, kèm số hiệu và ngày hiệu lực.</div>
+    <p>Văn bản áp dụng: <span class="ph">số hiệu, ngày ban hành, ngày hiệu lực</span></p>
+    <div class="tw"><table><thead><tr><th>Dịch vụ</th><th>Đơn vị tính</th><th>Mức giá</th><th>Ghi chú</th></tr></thead><tbody>
+      <tr><td>Khí thải xe mô tô, xe máy</td><td><span class="ph">...</span></td><td><span class="ph">...</span></td><td></td></tr>
+      <tr><td>Khí thải ô tô hạng nhẹ</td><td><span class="ph">...</span></td><td><span class="ph">...</span></td><td></td></tr>
+      <tr><td>Khí thải động cơ hạng nặng</td><td><span class="ph">...</span></td><td><span class="ph">...</span></td><td></td></tr>
+      <tr><td>Tiêu thụ điện năng xe điện, hybrid</td><td><span class="ph">...</span></td><td><span class="ph">...</span></td><td></td></tr></tbody></table></div>
+    <p>Dịch vụ đặc thù chưa có trong bảng: gửi <a href="#dang-ky" data-go="dang-ky">yêu cầu báo giá</a> hoặc <a href="#lien-he" data-go="lien-he">liên hệ đầu mối</a>.</p>
+  </div></div>
+</section>
+
+<!-- NĂNG LỰC -->
+<section class="page" id="nang-luc">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Năng lực và công nhận</div><h1>Năng lực và công nhận</h1></div></div>
+  <div class="wrap content"><aside class="side"><a href="#dich-vu" data-go="dich-vu">Danh mục phép thử</a><a href="#dang-ky" data-go="dang-ky">Đăng ký và quy trình</a><a href="#bang-gia" data-go="bang-gia">Bảng giá</a><a href="#nang-luc" data-go="nang-luc" aria-current="page">Năng lực và công nhận</a></aside>
+  <div class="prose">
+    <h2>Công nhận VILAS 884</h2>
+    <p>Phòng thử nghiệm đáp ứng ISO/IEC 17025:2017, lĩnh vực Hóa, gồm 26 phép thử: khí thải mức 2 đến 5, tiêu hao nhiên liệu, bay hơi nhiên liệu, tiêu thụ điện năng xe điện và hybrid, độ khói, OBD, cho mô tô, xe máy, ô tô hạng nhẹ và động cơ hạng nặng. Hệ thống quản lý chất lượng theo ISO 9001:2015.</p>
+    <div class="box">Hiệu lực công nhận hiện tại hết ngày 23/01/2027. Cập nhật ngày hiệu lực mới ngay sau khi tái công nhận. Danh mục 26 phép thử và phạm vi: <span class="ph">CẦN BỔ SUNG</span></div>
+    <h2>Phòng thử và thiết bị</h2>
+    <img src="assets/t-oto.jpg" alt="Phòng thử khí thải ô tô với băng thử" width="1200" height="800">
+    <p>Thiết bị đồng bộ sản xuất tại châu Âu, được TÜV (Đức) kiểm tra và công nhận. <span class="ph">Danh sách băng thử, thiết bị phân tích khí, buồng thử bay hơi</span></p>
+    <img src="assets/t-bayhoi.jpg" alt="Buồng thử bay hơi nhiên liệu" width="1200" height="800">
+    <h2>Đội ngũ</h2>
+    <p>Đăng kiểm viên và nhân viên kỹ thuật được đào tạo trong và ngoài nước. <span class="ph">Số lượng, trình độ nếu đồng ý công bố</span></p>
+  </div></div>
+</section>
+
+<!-- VĂN BẢN -->
+<section class="page" id="van-ban">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Văn bản và tiêu chuẩn</div><h1>Văn bản và tiêu chuẩn</h1></div></div>
+  <div class="wrap content"><aside class="side"><a href="#van-ban" data-go="van-ban" aria-current="page">Văn bản và tiêu chuẩn</a><a href="#dich-vu" data-go="dich-vu">Danh mục phép thử</a></aside>
+  <div class="prose">
+    <div class="box">Chỉ liệt kê văn bản đã kiểm tra số hiệu và hiệu lực. Mỗi dòng phải có số hiệu, ngày ban hành, tình trạng hiệu lực và tệp tải về.</div>
+    <div class="tw"><table><thead><tr><th>Nhóm</th><th>Văn bản</th><th>Tình trạng</th></tr></thead><tbody>
+      <tr><td>Chức năng của trung tâm</td><td>Quyết định 2292/QĐ-BXD ngày 12/12/2025 của Bộ Xây dựng</td><td><span class="ph">kiểm tra hiệu lực</span></td></tr>
+      <tr><td>Quy chuẩn khí thải</td><td><span class="ph">QCVN áp dụng cho từng loại xe</span></td><td><span class="ph">...</span></td></tr>
+      <tr><td>Tiêu chuẩn thử nghiệm</td><td><span class="ph">TCVN, UNECE/ECE viện dẫn</span></td><td><span class="ph">...</span></td></tr>
+      <tr><td>Thông tin tiêu thụ nhiên liệu</td><td><span class="ph">Danh sách xe mô tô, xe gắn máy đã công bố</span></td><td><span class="ph">...</span></td></tr></tbody></table></div>
+  </div></div>
+</section>
+
+<!-- GIỚI THIỆU -->
+<section class="page" id="gioi-thieu">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Giới thiệu</div><h1>Giới thiệu về NETC</h1></div></div>
+  <div class="wrap content"><aside class="side"><a href="#gioi-thieu" data-go="gioi-thieu" aria-current="page">Giới thiệu chung</a><a href="#lien-he" data-go="lien-he">Cơ cấu và liên hệ</a><a href="#nang-luc" data-go="nang-luc">Năng lực và công nhận</a></aside>
+  <div class="prose">
+    <img src="assets/toa-nha-2.jpg" alt="Trụ sở NETC" width="1200" height="800">
+    <h2>Trung tâm làm gì</h2>
+    <p>NETC là đơn vị sự nghiệp công lập trực thuộc Cục Đăng kiểm Việt Nam, Bộ Xây dựng, có tư cách pháp nhân và hạch toán độc lập. Trung tâm thành lập ngày 21/09/2009 theo Quyết định số 2737/QĐ-BGTVT của Bộ trưởng Bộ Giao thông vận tải. Chức năng, nhiệm vụ hiện hành theo Quyết định 2292/QĐ-BXD ngày 12/12/2025.</p>
+    <h2>Nhiệm vụ chính</h2>
+    <ul><li>Cung cấp dịch vụ thử nghiệm khí thải, tiêu thụ nhiên liệu, năng lượng của phương tiện và thiết bị, lập báo cáo thử nghiệm.</li><li>Tham gia xây dựng quy chuẩn, tiêu chuẩn và văn bản pháp luật liên quan.</li><li>Giám sát thử nghiệm, đánh giá điều kiện kỹ thuật của cơ sở thử nghiệm khác.</li><li>Xây dựng, khai thác cơ sở dữ liệu phương tiện và thiết bị.</li><li>Nghiên cứu khoa học, chuyển giao công nghệ; biên soạn tài liệu và đánh giá đăng kiểm viên lĩnh vực khí thải.</li><li>Hợp tác, liên doanh, liên kết trong và ngoài nước.</li></ul>
+    <h2>Lãnh đạo</h2>
+    <div class="leaders">
+      <div class="leader"><div class="avatar">NH<img src="assets/giam-doc.jpg" alt="Giám đốc Nguyễn Hoài Nam" onerror="this.remove()"></div><div><span class="role">Giám đốc</span><b>Nguyễn Hoài Nam</b><p>Điện thoại: 0243 689 3666</p></div></div>
+      <div class="leader"><div class="avatar">LV<img src="assets/pho-giam-doc.jpg" alt="Phó Giám đốc Lê Hồng Việt" onerror="this.remove()"></div><div><span class="role">Phó Giám đốc</span><b>Lê Hồng Việt</b><p>Điện thoại: 083 455 4529</p></div></div>
+    </div>
+    <h2>Cơ cấu</h2>
+    <p>Bốn phòng: Thử nghiệm xe cơ giới; Thử nghiệm động cơ và thiết bị; Tổ chức - Hành chính; Nghiên cứu phát triển - Thiết bị vật tư. Lãnh đạo và đầu mối ở trang <a href="#lien-he" data-go="lien-he">Liên hệ</a>.</p>
+  </div></div>
+</section>
+
+<!-- TIN TỨC -->
+<section class="page" id="tin-tuc">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Tin tức</div><h1>Thông tin chuyên ngành thế giới</h1></div></div>
+  <div class="wrap sec prose">
+    <div class="box">Bản tóm tắt tiếng Việt do NETC biên soạn từ nguồn tiếng Anh của cơ quan quản lý và tổ chức quốc tế. Mỗi mục ghi rõ nguồn và nguyên văn tên bài gốc; liên kết dẫn về bài gốc. Các mục ghi CẦN KIỂM TRA phải được rà lại trước khi đăng. Tin riêng của NETC: <span class="ph">CẦN BỔ SUNG</span>.</div>
+    <h2>Quy định khí thải và năng lượng</h2>
+    <div class="nlist">
+      <article class="nitem"><div class="meta"><span class="tag t-eu">Châu Âu</span><time>Áp dụng từ 29/11/2026</time><span class="src">Nguồn: EUR-Lex, cổng pháp luật của Liên minh châu Âu</span></div><h3><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R1257" target="_blank" rel="noopener">Quy định (EU) 2024/1257 (Euro 7) về phê duyệt kiểu loại xe cơ giới và động cơ</a></h3><p>Công bố trên Công báo Liên minh châu Âu ngày 8/5/2024. Áp dụng cho kiểu loại mới M1 và N1 từ 29/11/2026, mọi xe M1 và N1 mới từ 29/11/2027; xe tải và xe buýt (M2, M3, N2, N3) từ 29/5/2028 cho kiểu loại mới và 29/5/2029 cho mọi xe mới. Điểm mới: khí thải phải đạt trong cả vòng đời xe, giám sát phát thải trên xe (NOx, hạt, NH3), theo dõi độ chai pin với xe có pin kéo, đưa mài mòn lốp vào phạm vi (lốp C1 từ 1/7/2028); giới hạn hạt từ phanh sẽ đặt sau bằng văn bản ủy quyền.</p><p class="orig">Nguyên văn nguồn: <i>Regulation (EU) 2024/1257 of the European Parliament and of the Council of 24 April 2024 on type-approval of motor vehicles and engines and of systems, components and separate technical units</i></p></article>
+      <article class="nitem"><div class="meta"><span class="tag t-us">Hoa Kỳ</span><time>Đề xuất ngày 18/05/2026</time><span class="src">Nguồn: Federal Register, công báo của Hoa Kỳ</span></div><h3><a href="https://www.federalregister.gov/documents/2026/05/18/2026-09905/revision-of-tier-4-criteria-pollutant-standards-part-1-amendments-to-phase-in-schedule-for" target="_blank" rel="noopener">EPA đề xuất hoãn lộ trình Tier 4 cho xe nhẹ và xe tải cỡ vừa</a></h3><p>Cơ quan Bảo vệ Môi trường Hoa Kỳ (EPA) đề xuất giữ Tier 3 cho năm mẫu 2027 và 2028, trở lại Tier 4 từ năm mẫu 2029. Mức trung bình NMOG+NOx cho xe nhẹ là 30 mg/dặm năm 2027 và 2028, rồi 21 mg/dặm năm 2029. Hạn góp ý đến 6/7/2026. Đây là đề xuất, chưa có hiệu lực tại thời điểm văn bản; <span class="ph">CẦN KIỂM TRA kết quả sau góp ý</span>.</p><p class="orig">Nguyên văn nguồn: <i>Revision of Tier 4 Criteria Pollutant Standards, Part 1: Amendments to Phase-In Schedule for Light-Duty and Medium-Duty Vehicles (91 FR 28463)</i></p></article>
+      <article class="nitem"><div class="meta"><span class="tag t-cn">Trung Quốc</span><time>Từ 07/2023</time><span class="src">Nguồn: DieselNet (trang tổng hợp, không phải cơ quan nhà nước Trung Quốc)</span></div><h3><a href="https://dieselnet.com/standards/cn/ld.php" target="_blank" rel="noopener">Tiêu chuẩn GB 18352.6-2016 (China 6): giai đoạn 6a, 6b và đo phát thải khi chạy thực tế</a></h3><p>China 6a áp dụng toàn quốc từ 1/2021, China 6b từ 7/2023. Đo phát thải khi chạy thực tế (RDE) bắt buộc từ 7/2023 với hệ số phù hợp 2,1 cho NOx và hạt, không tính giai đoạn khởi động nguội. Độ bền 200.000 km với China 6b. Tiêu chuẩn có bản sửa đổi năm 2025 về báo cáo lỗi bộ phận được bảo hành và xe từ ba trục trở lên.</p><p class="orig">Nguyên văn nguồn: <i>GB 18352.6-2016, tổng hợp bởi DieselNet: China: Cars and Light Trucks - Emission Standards</i></p></article>
+      <article class="nitem"><div class="meta"><span class="tag t-jp">Nhật Bản</span><time>Mục tiêu năm tài chính 2030</time><span class="src">Nguồn: ICCT, trình bày lại tài liệu của MLIT</span></div><h3><a href="https://theicct.org/wp-content/uploads/2021/10/Overview-of-MLIT-Vehicle-Environmental-Policy.pdf" target="_blank" rel="noopener">Tiêu chuẩn tiết kiệm nhiên liệu xe khách của Nhật Bản</a></h3><p>Bộ Đất đai, Hạ tầng, Giao thông và Du lịch (MLIT) cùng Bộ Kinh tế, Thương mại và Công nghiệp (METI) đặt mục tiêu năm tài chính 2030 cho xe khách là 25,4 km/L, tăng 32,4% so với thực tế năm tài chính 2016, áp dụng cho nhà sản xuất theo Luật Sử dụng năng lượng hợp lý. Tài liệu năm 2021, <span class="ph">CẦN KIỂM TRA bản cập nhật mới nhất của MLIT</span>.</p><p class="orig">Nguyên văn nguồn: <i>Overview of MLIT’s Vehicle Environmental Policy (tài liệu do ICCT lưu hành, 2021)</i></p></article>
+      <article class="nitem"><div class="meta"><span class="tag t-un">Toàn cầu</span><time>Quy định kỹ thuật toàn cầu</time><span class="src">Nguồn: UNECE</span></div><h3><a href="https://unece.org/sites/default/files/2023-01/ECE_TRANS_180a22e.pdf" target="_blank" rel="noopener">UN GTR số 22: độ bền pin trong xe điện</a></h3><p>Quy định kỹ thuật toàn cầu của Ủy ban Kinh tế châu Âu Liên Hợp Quốc (UNECE) đặt phương pháp đánh giá độ bền của pin kéo ngay trên xe, bổ sung cho thử nghiệm tiêu thụ năng lượng và quãng đường chạy.</p><p class="orig">Nguyên văn nguồn: <i>United Nations Global Technical Regulation No. 22</i></p></article>
+      <article class="nitem"><div class="meta"><span class="tag t-us">Hoa Kỳ</span><time>Cơ sở thử nghiệm</time><span class="src">Nguồn: EPA</span></div><h3><a href="https://www.epa.gov/vehicle-and-fuel-emissions-testing" target="_blank" rel="noopener">Phòng thử nghiệm khí thải và nhiên liệu quốc gia của EPA (NVFEL)</a></h3><p>Cơ sở chính của EPA để thử khí thải xe, xây dựng tiêu chuẩn và xác định xe tuân thủ tiêu chuẩn khí thải và tiết kiệm nhiên liệu liên bang. Phòng thử được công nhận ISO 17025:2017 và chứng nhận ISO 14001:2015.</p><p class="orig">Nguyên văn nguồn: <i>National Vehicle and Fuel Emissions Laboratory (NVFEL)</i></p></article>
+    </div>
+    <h2>Công nghệ thử nghiệm mới cần theo dõi</h2>
+    <ul class="tech">
+      <li><b>Đo phát thải khi chạy thực tế (RDE).</b> Đã bắt buộc ở Trung Quốc từ 7/2023. Cần thiết bị đo phát thải di động lắp trên xe. <i>Nguồn: DieselNet.</i></li>
+      <li><b>Giám sát phát thải trên xe (OBM).</b> Euro 7 yêu cầu xe tự giám sát NOx, hạt và NH3. <i>Nguồn: EUR-Lex.</i></li>
+      <li><b>Độ chai và độ bền pin.</b> Euro 7 đòi theo dõi độ chai pin; UN GTR 22 đặt phương pháp đánh giá độ bền. <i>Nguồn: EUR-Lex, UNECE.</i></li>
+      <li><b>Hạt từ phanh và mài mòn lốp.</b> Châu Âu đưa vào phạm vi quản lý; giới hạn hạt phanh sẽ do văn bản ủy quyền quy định sau. <i>Nguồn: EUR-Lex.</i></li>
+    </ul>
+  </div>
+</section>
+
+<!-- LIÊN HỆ -->
+<section class="page" id="lien-he">
+  <div class="pagehead"><div class="wrap"><div class="crumb"><a href="#trang-chu" data-go="trang-chu">Trang chủ</a> / Liên hệ</div><h1>Liên hệ</h1></div></div>
+  <div class="wrap sec prose">
+    <div class="box">Thông tin lấy từ trang giới thiệu hiện tại của Cục Đăng kiểm Việt Nam. Cần NETC xác nhận từng số điện thoại và email được phép công bố, và địa chỉ theo địa giới hành chính hiện hành (hồ sơ nội bộ ghi trụ sở tại xã Liên Ninh, Thanh Trì, khác với địa chỉ dưới đây).</div>
+    <h2>Địa chỉ</h2>
+    <p>Km15+200, Quốc lộ 1A, Thôn Yên Phú, Xã Ngọc Hồi, Thành phố Hà Nội<br>Điện thoại: (024) 3689 3108 · Fax: (024) 3689 3555</p>
+    <h2>Lãnh đạo</h2>
+    <div class="leaders">
+      <div class="leader"><div class="avatar">NH<img src="assets/giam-doc.jpg" alt="Giám đốc Nguyễn Hoài Nam" onerror="this.remove()"></div><div><span class="role">Giám đốc</span><b>Nguyễn Hoài Nam</b><p>Điện thoại: 0243 689 3666</p></div></div>
+      <div class="leader"><div class="avatar">LV<img src="assets/pho-giam-doc.jpg" alt="Phó Giám đốc Lê Hồng Việt" onerror="this.remove()"></div><div><span class="role">Phó Giám đốc</span><b>Lê Hồng Việt</b><p>Điện thoại: 083 455 4529</p></div></div>
+    </div>
+    <h2>Đầu mối theo công việc</h2>
+    <div class="people">
+      <div class="person"><b>Tiếp nhận và trả báo cáo thử nghiệm</b><span>Nguyễn Đặng Thiên Hương</span><br>0962 170 052</div>
+      <div class="person"><b>Thu giá thử nghiệm, cấp hóa đơn</b><span>Nguyễn Vũ Ngọc</span><br>0356 991 668</div>
+      <div class="person"><b>Phòng Thử nghiệm xe cơ giới</b><span>Nguyễn Văn Truyền, Trưởng phòng</span><br>0979 875 666</div>
+      <div class="person"><b>Phòng Thử nghiệm động cơ và thiết bị</b><span>Hoàng Văn Tập, Trưởng phòng</span><br>0983 026 366</div>
+      <div class="person"><b>Phòng Tổ chức - Hành chính</b><span>Trần Duy Mạnh, Trưởng phòng</span><br>0984 666 748</div>
+      <div class="person"><b>Phòng Nghiên cứu phát triển - Thiết bị vật tư</b><span>Nguyễn Hải Dương, Trưởng phòng</span><br>0812 858 580</div>
+    </div>
+    <h2>Gửi yêu cầu</h2>
+    <form id="cf" style="display:grid;gap:12px;max-width:560px">
+      <label for="c1">Doanh nghiệp</label><input id="c1" style="padding:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit">
+      <label for="c2">Email liên hệ</label><input id="c2" type="email" style="padding:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit">
+      <label for="c3">Nội dung cần thử nghiệm</label><textarea id="c3" rows="4" style="padding:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit"></textarea>
+      <button type="submit" style="justify-self:start;border:0;background:var(--navy);color:var(--on-navy);padding:11px 22px;font:600 15px var(--font-head);cursor:pointer">Gửi yêu cầu</button>
+      <p id="cmsg" class="box" hidden>Bản xem trước: biểu mẫu chưa gửi đi đâu. Khi triển khai thật cần chọn nơi nhận (email hoặc hệ thống của NETC).</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div class="cols">
+  <div><h3>NETC</h3><p>Trung tâm thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ, trực thuộc Cục Đăng kiểm Việt Nam.</p><p>Km15+200, Quốc lộ 1A, Xã Ngọc Hồi, Hà Nội<br>(024) 3689 3108</p></div>
+  <div><h3>Dịch vụ</h3><a href="#dich-vu" data-go="dich-vu">Danh mục phép thử</a><a href="#dang-ky" data-go="dang-ky">Đăng ký và quy trình</a><a href="#bang-gia" data-go="bang-gia">Bảng giá</a><a href="#nang-luc" data-go="nang-luc">Năng lực và công nhận</a></div>
+  <div><h3>Về trung tâm</h3><a href="#gioi-thieu" data-go="gioi-thieu">Giới thiệu</a><a href="#tin-tuc" data-go="tin-tuc">Tin tức</a><a href="#van-ban" data-go="van-ban">Văn bản và tiêu chuẩn</a><a href="#lien-he" data-go="lien-he">Liên hệ</a></div>
+  <div><h3>Liên kết</h3><a href="https://www.vr.org.vn" target="_blank" rel="noopener">Cục Đăng kiểm Việt Nam</a><a href="https://moc.gov.vn" target="_blank" rel="noopener">Bộ Xây dựng</a></div>
+</div><div class="legal">Bản xem trước. Ảnh chụp tại NETC; ảnh có xe của hãng chỉ dùng khi hãng đồng ý. <span class="ph">CẦN BỔ SUNG: chính sách quyền riêng tư</span></div></div></footer>
+
+<script>
+(function(){
+  var pages=[].slice.call(document.querySelectorAll('.page')),ids=pages.map(function(p){return p.id});
+  var nav=[].slice.call(document.querySelectorAll('#menu a'));
+  function show(id,push){
+    if(ids.indexOf(id)<0)id='trang-chu';
+    pages.forEach(function(p){p.classList.toggle('on',p.id===id)});
+    nav.forEach(function(a){if(a.dataset.go===id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    if(push){try{history.replaceState(null,'','#'+id)}catch(e){}}
+    window.scrollTo(0,0);
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[data-go],a[data-q]');if(!a)return;
+    e.preventDefault();
+    if(a.dataset.q){document.getElementById('q2').value=a.dataset.q;filter();show('dich-vu',true);return}
+    show(a.dataset.go,true);
+  });
+  var items=[].slice.call(document.querySelectorAll('.svc-item'));
+  function filter(){
+    var t=document.getElementById('q2').value.trim().toLowerCase(),n=0;
+    items.forEach(function(it){var m=!t||(it.dataset.k+' '+it.textContent).toLowerCase().indexOf(t)>-1;it.hidden=!m;if(m)n++});
+    document.getElementById('none').hidden=n>0;
+  }
+  document.getElementById('sform').addEventListener('submit',function(e){e.preventDefault();document.getElementById('q2').value=document.getElementById('q').value;filter();show('dich-vu',true)});
+  document.getElementById('f2').addEventListener('submit',function(e){e.preventDefault();filter()});
+  document.getElementById('q2').addEventListener('input',filter);
+  document.getElementById('cf').addEventListener('submit',function(e){e.preventDefault();document.getElementById('cmsg').hidden=false});
+  var h=(location.hash||'').replace('#','');show(h||'trang-chu',false);
+})();
+</script>

@@ -294,6 +294,16 @@ footer h3,footer h4{color:var(--ink)}footer a{color:var(--link)}footer p,footer 
 
 .stats-visit{display:flex;gap:24px;flex-wrap:wrap;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 .stats-visit b{color:var(--ink);font-size:18px;font-variant-numeric:tabular-nums}
+
+/* v9: thanh đầu trang nền ảnh trung tâm, xanh mờ chuyển dần */
+header.top{background:linear-gradient(90deg,rgba(7,33,86,.97) 0%,rgba(10,62,150,.9) 42%,rgba(14,92,210,.62) 100%),url(../assets/header-bg.jpg) center 22%/cover no-repeat;border-bottom:0}
+header.top .wrap{padding-block:18px}
+header.top .logo-l{display:none!important}header.top .logo-d{display:block!important}
+header.top .brand .en{color:#cfe0fb}
+header.top .brand .vn{color:#fff;border-left-color:#ff4b52}
+header.top .callus span{color:#cfe0fb}
+header.top .callus b{color:#fff}
+header.top .vn::before{background:linear-gradient(#ff4b52 0 50%,#8fc0ff 50% 100%)}
 </style>
 
 <div class="preview"><div class="wrap"><span><b>Preview.</b> Draft content, not official NETC information.</span><span>Yellow underlined text marks missing data.</span></div></div>

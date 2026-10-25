@@ -1,5 +1,10 @@
-<title>Website NETC</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NETC – Trung tâm thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ</title>
+<meta name="description" content="Thử nghiệm khí thải và tiêu thụ năng lượng xe cơ giới của Cục Đăng kiểm Việt Nam: dịch vụ, quy trình đăng ký, bảng giá, năng lực VILAS 884.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap">
 <style>
 /* Hallmark · shape: portal · genre: editorial · theme: custom · job: try · draw: manual
@@ -130,7 +135,10 @@ footer a{color:var(--k-d6e2f1);display:block;padding:4px 0}
 footer .cols{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 footer .legal{border-top:1px solid var(--k-rgba-251-253-255-18);margin-top:28px;padding-top:16px;font-size:13px}
 .theme{background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:4px 12px;font:inherit;cursor:pointer;border-radius:4px}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+:focus-visible{outline:3px solid var(--navy-deep);outline-offset:2px;box-shadow:0 0 0 2px var(--surface)}
+.skip{position:absolute;left:8px;top:-60px;z-index:20;background:var(--navy-deep);color:var(--on-navy);padding:12px 16px;border-radius:6px;font:600 14px var(--font-head)}
+.skip:focus{top:8px}
+@media (prefers-reduced-motion:reduce){.itile:hover img{transform:none}}
 @media (prefers-reduced-motion:no-preference){.page.on{animation:in .25s ease}@keyframes in{from{opacity:.4}to{opacity:1}}}
 
 /* v4: phong cách cổng dịch vụ kiểu TÜV: nền trắng, góc vuông, ảnh lớn, thẻ nội dung phủ trên ảnh, nút chữ in hoa, chân trang xanh đậm */
@@ -315,6 +323,7 @@ header.top .callus b{color:var(--k-fbfdff)}
 header.top .vn::before{background:linear-gradient(var(--k-ff4b52) 0 50%,var(--k-8fc0ff) 50% 100%)}
 </style>
 
+<a class="skip" href="#main">Chuyển đến nội dung chính</a>
 <div class="preview"><div class="wrap"><span><b>Bản xem trước.</b> Nội dung nháp, chưa phải thông tin chính thức của NETC.</span><span>Chỗ nền vàng gạch nét là dữ liệu còn thiếu.</span></div></div>
 <div class="util"><div class="wrap"><span>Cục Đăng kiểm Việt Nam · Bộ Xây dựng</span><span><a href="#gioi-thieu" data-go="gioi-thieu">Giới thiệu</a><a href="#tin-tuc" data-go="tin-tuc">Tin tức</a><a href="#van-ban" data-go="van-ban">Văn bản</a><a href="#lien-he" data-go="lien-he">Liên hệ</a><a id="langSw" href="en/index.html" hreflang="en" lang="en">English</a></span></div></div>
 <header class="top"><div class="wrap"><a class="brand" href="#trang-chu" data-go="trang-chu"><span class="lg"><img class="logo logo-l" src="assets/logo-netc.png" alt="NETC"><img class="logo logo-d" src="assets/logo-netc-dark.png" alt="NETC"><span class="en">National Motor Vehicle<br>Emission Test Center</span></span><span class="vn">Trung tâm thử nghiệm khí thải<br>phương tiện giao thông cơ giới đường bộ</span></a><a class="callus" href="#lien-he" data-go="lien-he"><span>Tư vấn thử nghiệm</span><b>(024) 3689 3108</b></a></div></header>
@@ -327,7 +336,7 @@ header.top .vn::before{background:linear-gradient(var(--k-ff4b52) 0 50%,var(--k-
 <li><a href="#lien-he" data-go="lien-he">Liên hệ</a></li>
 </ul><a class="btn sm navcta" href="#dang-ky" data-go="dang-ky">Gửi đề nghị thử nghiệm</a></div></nav>
 
-<main>
+<main id="main" tabindex="-1">
 <!-- TRANG CHỦ -->
 <section class="page on" id="trang-chu">
   <div class="hero2"><div class="wrap hgrid"><div class="ov">
@@ -586,6 +595,7 @@ header.top .vn::before{background:linear-gradient(var(--k-ff4b52) 0 50%,var(--k-
     if(a.dataset.q){document.getElementById('q2').value=a.dataset.q;filter();show('dich-vu',true);return}
     show(a.dataset.go,true);
   });
+  var sk=document.querySelector('.skip');if(sk)sk.addEventListener('click',function(e){e.preventDefault();document.getElementById('main').focus()});
   var items=[].slice.call(document.querySelectorAll('.svc-item'));
   function filter(){
     var t=document.getElementById('q2').value.trim().toLowerCase(),n=0;
@@ -717,3 +727,4 @@ header.top .vn::before{background:linear-gradient(var(--k-ff4b52) 0 50%,var(--k-
 <script>
 (function(){var a=document.getElementById('langSw');if(!a)return;function u(){a.href=a.getAttribute('data-base')+(location.hash||'')}a.setAttribute('data-base',a.getAttribute('href'));u();window.addEventListener('hashchange',u);document.addEventListener('click',function(){setTimeout(u,0)})})();
 </script>
+</html>

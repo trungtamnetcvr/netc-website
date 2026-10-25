@@ -328,13 +328,17 @@ header.top .vn::before{background:linear-gradient(var(--k-ff4b52) 0 50%,var(--k-
 .btn,.chips a,.find .search button{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .btn.sm{padding-block:8px}
 nav.main a{min-height:44px}
+.navtoggle{display:none;align-items:center;gap:8px;min-height:44px;padding:0 12px;margin-block:4px;background:transparent;border:1px solid var(--line);border-radius:6px;color:var(--ink);font:600 14px var(--font-head);cursor:pointer}
+.util a{white-space:nowrap}
+.navtoggle svg{width:18px;height:18px}
+@media (max-width:760px){.navtoggle{display:inline-flex}nav.main ul{display:none;width:100%;order:3}nav.main.open ul{display:block}nav.main ul a{padding:12px}}
 </style>
 
 <a class="skip" href="#main">Chuyển đến nội dung chính</a>
 <div class="preview"><div class="wrap"><span><b>Bản xem trước.</b> Nội dung nháp, chưa phải thông tin chính thức của NETC.</span><span>Chỗ nền vàng gạch nét là dữ liệu còn thiếu.</span></div></div>
 <div class="util"><div class="wrap"><span>Cục Đăng kiểm Việt Nam · Bộ Xây dựng</span><span><a href="#gioi-thieu" data-go="gioi-thieu">Giới thiệu</a><a href="#tin-tuc" data-go="tin-tuc">Tin tức</a><a href="#van-ban" data-go="van-ban">Văn bản</a><a href="#lien-he" data-go="lien-he">Liên hệ</a><a id="langSw" href="en/index.html" hreflang="en" lang="en">English</a></span></div></div>
 <header class="top"><div class="wrap"><a class="brand" href="#trang-chu" data-go="trang-chu"><span class="lg"><img class="logo logo-l" src="assets/logo-netc.png" alt="NETC"><img class="logo logo-d" src="assets/logo-netc-dark.png" alt="NETC"><span class="en">National Motor Vehicle<br>Emission Test Center</span></span><span class="vn">Trung tâm thử nghiệm khí thải<br>phương tiện giao thông cơ giới đường bộ</span></a><a class="callus" href="#lien-he" data-go="lien-he"><span>Tư vấn thử nghiệm</span><b>(024) 3689 3108</b></a></div></header>
-<nav class="main" aria-label="Menu chính"><div class="wrap"><ul id="menu">
+<nav class="main" aria-label="Menu chính"><div class="wrap"><button type="button" class="navtoggle" aria-expanded="false" aria-controls="menu" aria-label="Mở hoặc đóng menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button><ul id="menu">
 <li><a href="#trang-chu" data-go="trang-chu">Trang chủ</a></li>
 <li><a href="#dich-vu" data-go="dich-vu">Dịch vụ thử nghiệm</a></li>
 <li><a href="#dang-ky" data-go="dang-ky">Đăng ký và quy trình</a></li>
@@ -602,6 +606,7 @@ nav.main a{min-height:44px}
     if(a.dataset.q){document.getElementById('q2').value=a.dataset.q;filter();show('dich-vu',true);return}
     show(a.dataset.go,true);
   });
+  var nt=document.querySelector('.navtoggle'),nv=document.querySelector('nav.main');if(nt){nt.addEventListener('click',function(){var o=nv.classList.toggle('open');nt.setAttribute('aria-expanded',o?'true':'false')});document.getElementById('menu').addEventListener('click',function(e){if(e.target.closest('a')){nv.classList.remove('open');nt.setAttribute('aria-expanded','false')}})}
   var sk=document.querySelector('.skip');if(sk)sk.addEventListener('click',function(e){e.preventDefault();document.getElementById('main').focus()});
   var items=[].slice.call(document.querySelectorAll('.svc-item'));
   function filter(){

@@ -1,0 +1,38 @@
+/* Hiệu ứng chuyển động nhẹ cho website NETC. Chỉ chạy khi người dùng không tắt chuyển động trong hệ điều hành. */
+html{scroll-behavior:smooth}
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:0 50%;z-index:30;pointer-events:none}
+nav.main{transition:box-shadow .25s ease}
+nav.main.stuck{box-shadow:0 4px 14px var(--k-rgba-15-60-130-07)}
+.btn,.tile,.leader,.person,.svc-item,.nitem,.flow>div{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,filter .2s ease}
+.btn{position:relative}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.tile:hover,.leader:hover,.person:hover,.svc-item:hover{transform:translateY(-4px);box-shadow:0 10px 24px var(--k-rgba-15-60-130-22)}
+.nitem:hover{transform:translateY(-3px)}
+.flow>div{border-top-color:var(--line);background-image:linear-gradient(var(--navy),var(--navy));background-repeat:no-repeat;background-size:0 4px;background-position:0 0}
+.flow>div.in{background-size:100% 4px;transition:background-size .8s ease .15s,transform .22s ease}
+.stats3>div{transition:background-color .25s ease}
+.stats3>div:hover{background:var(--tint)}
+.steps li{transition:transform .22s ease,border-color .22s ease}
+.steps li:hover{transform:translateX(4px);border-color:var(--navy)}
+.totop{position:fixed;left:16px;bottom:16px;width:44px;height:44px;border:1px solid var(--line);background:var(--surface);color:var(--link);cursor:pointer;display:grid;place-items:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:9}
+.totop.on{opacity:1;visibility:visible;transform:none}
+.totop:hover{border-color:var(--navy)}
+@media (prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+  .rv.in{opacity:1;transform:none}
+  .tile.rv.in:hover,.leader.rv.in:hover,.person.rv.in:hover,.svc-item.rv.in:hover{transform:translateY(-4px);transition-delay:0s;transition-duration:.22s}
+  .hero2 .ov>*{animation:up .7s cubic-bezier(.2,.7,.2,1) both}
+  .hero2 .ov>*:nth-child(2){animation-delay:.1s}.hero2 .ov>*:nth-child(3){animation-delay:.2s}
+  .hero2 .himg{animation:fadeimg 1s ease both}
+  .hero2 .himg img{animation:zoom 9s ease-out both}
+  @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes fadeimg{from{opacity:0}to{opacity:1}}
+  @keyframes zoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  .tile:hover,.leader:hover,.person:hover,.svc-item:hover,.nitem:hover,.btn:hover,.steps li:hover{transform:none}
+  .flow>div{background-size:100% 4px}
+}

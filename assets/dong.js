@@ -22,6 +22,22 @@
   }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
+  var hi=document.querySelector('.hero2 .himg');
+  if(!calm&&hi){
+    window.addEventListener('scroll',function(){
+      requestAnimationFrame(function(){var y=window.pageYOffset;if(y<900)hi.style.transform='translateY('+(y*.08).toFixed(1)+'px)'});
+    },{passive:true});
+  }
+  if(!calm&&window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    [].slice.call(document.querySelectorAll('.itile')).forEach(function(c){
+      c.classList.add('tilt');
+      c.addEventListener('pointermove',function(e){
+        var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+        c.style.transform='perspective(800px) rotateY('+(x*6).toFixed(2)+'deg) rotateX('+(-y*6).toFixed(2)+'deg) translateY(-4px)';
+      });
+      c.addEventListener('pointerleave',function(){c.style.transform=''});
+    });
+  }
   if(calm||!('IntersectionObserver' in window))return;
 
   var sel='.sec>h2,.sec>.lead,.flow>div,.itile,.tile,.nitem,.leader,.person,.svc-item,.steps li,.stats3>div,.faq details,.cta-band .wrap,.prose>h2,.prose>p,.prose>.tw';
@@ -38,6 +54,7 @@
     el.style.setProperty('--d',Math.min(sib%6,5)*.07+'s');
     el.classList.add('rv');io.observe(el);
   });
+  [].slice.call(document.querySelectorAll('.leaders .leader')).forEach(function(el,i){el.classList.add(i%2?'from-r':'from-l')});
   [].slice.call(document.querySelectorAll('.flow>div')).forEach(function(el){el.classList.add('rv')});
 
   function count(b){

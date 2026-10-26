@@ -36,3 +36,49 @@ nav.main.stuck{box-shadow:0 4px 14px var(--k-rgba-15-60-130-07)}
   .tile:hover,.leader:hover,.person:hover,.svc-item:hover,.nitem:hover,.btn:hover,.steps li:hover{transform:none}
   .flow>div{background-size:100% 4px}
 }
+
+/* Đợt 2: hiệu ứng nổi bật hơn */
+nav.main ul a{position:relative}
+nav.main ul a::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s ease}
+nav.main ul a:hover::after{transform:scaleX(1)}
+.btn{overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);pointer-events:none}
+.btn:hover::after{left:130%;transition:left .7s ease}
+.sec>h2{position:relative;padding-bottom:12px}
+.sec>h2::after{content:"";position:absolute;left:0;bottom:0;width:56px;height:4px;background:var(--red);transform:scaleX(0);transform-origin:0 50%;transition:transform .7s cubic-bezier(.2,.7,.2,1) .25s}
+.sec>h2.in::after{transform:scaleX(1)}
+.itile .cap h3::after{content:" \2192";display:inline-block;opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s}
+.itile:hover .cap h3::after{opacity:1;transform:none}
+.chips a{transition:transform .2s ease,background-color .2s ease,color .2s ease}
+.chips a:hover{transform:translateY(-2px)}
+.hero2{isolation:isolate}
+.hero2::before{content:"";position:absolute;z-index:-1;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(circle,var(--hero1),transparent 70%);opacity:.9}
+.band{position:relative;overflow:hidden}
+.faq details{transition:background-color .25s ease,border-color .25s ease}
+.faq details[open]{background:var(--tint)}
+.faq details[open] summary{color:var(--link)}
+.faq details[open]>*:not(summary){animation:faq .35s ease both}
+@keyframes faq{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.cta-band .btn{animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.45)}60%{box-shadow:0 0 0 12px rgba(255,255,255,0)}}
+.logo{transition:transform .3s ease}
+.brand:hover .logo{transform:scale(1.04)}
+.itile{transition:box-shadow .3s ease}
+.itile:hover{box-shadow:0 14px 30px rgba(5,20,50,.28)}
+.himg{will-change:transform}
+@media (prefers-reduced-motion:no-preference){
+  .hero2::before{animation:drift 14s ease-in-out infinite alternate}
+  @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(-60px,50px) scale(1.15)}}
+  .page.on{animation:pg .45s cubic-bezier(.2,.7,.2,1)}
+  @keyframes pg{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .rv.from-l{transform:translateX(-30px)}.rv.from-r{transform:translateX(30px)}
+  .rv.from-l.in,.rv.from-r.in{transform:none}
+  .itile.rv{transform:translateY(26px) scale(.96)}.itile.rv.in{transform:none}
+  .itile{will-change:transform}
+  .tilt{transition:transform .15s ease-out,box-shadow .3s ease}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn::after,.hero2::before{display:none}
+  .cta-band .btn{animation:none}
+  .sec>h2::after{transform:scaleX(1)}
+}
